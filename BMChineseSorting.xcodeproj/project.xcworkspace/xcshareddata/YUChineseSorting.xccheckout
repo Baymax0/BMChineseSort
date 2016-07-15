@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>68E65EAE-CA43-4BB2-B02D-AEBED5BB822C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0830EFC2DCDCEE033C9EC543ED73E65B9FAF97BB</key>
+		<string>https://github.com/6357/YUChineseSorting.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>YUChineseSorting.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0830EFC2DCDCEE033C9EC543ED73E65B9FAF97BB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/6357/YUChineseSorting.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0830EFC2DCDCEE033C9EC543ED73E65B9FAF97BB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0830EFC2DCDCEE033C9EC543ED73E65B9FAF97BB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>YUChineseSorting</string>
+		</dict>
+	</array>
+</dict>
+</plist>
