@@ -13,15 +13,12 @@
 @interface ViewController (){
     NSMutableArray<Person *> *array;
 }
+
 @property(nonatomic,strong)NSMutableArray *indexArray;
 @property(nonatomic,strong)NSMutableArray *letterResultArr;
-
-@property(nonatomic,strong)NSMutableArray *indexArray2;
-@property(nonatomic,strong)NSMutableArray *letterResultArr2;
 @end
 
 @implementation ViewController
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,8 +29,6 @@
                             @"幻刺",@"暗影猎手",@"小白",@"小明",@"千珏",
                             @"黄家驹", @"鼠标",@"hello",@"多美丽",@"肯德基",
                             nil];
-    self.indexArray = [BMChineseString IndexArray:stringsToSort];
-    self.letterResultArr = [BMChineseString LetterSortArray:stringsToSort];
     //    排序2
     //模拟网络请求接收到的数组对象
     array = [[NSMutableArray alloc] initWithCapacity:0];
@@ -45,8 +40,8 @@
     }
     NSLog(@"%@",[array objectAtIndex:1]);
     
-    self.indexArray2 = [BMChineseString IndexWithArray:array Key:@"name"];
-    self.letterResultArr2 = [BMChineseString sortObjectArray:array Key:@"name"];
+    self.indexArray = [BMChineseString IndexWithArray:array Key:@"name"];
+    self.letterResultArr = [BMChineseString sortObjectArray:array Key:@"name"];
 
     UITableView *table = [[UITableView alloc] initWithFrame:self.view.frame];
     table.delegate = self;
@@ -78,8 +73,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    //    cell.textLabel.text = [[self.letterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
-    Person *p = [[self.letterResultArr2 objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    //获得对应的Person对象
+    Person *p = [[self.letterResultArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.textLabel.text = p.name;
     
     return cell;
@@ -93,29 +88,20 @@
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
     return index;
 }
-#pragma mark - UITableViewDelegate
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-    lab.backgroundColor = [UIColor grayColor];
-    lab.text = [self.indexArray objectAtIndex:section];
-    lab.textColor = [UIColor whiteColor];
-    return lab;
-}
+
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+//    lab.backgroundColor = [UIColor grayColor];
+//    lab.text = [self.indexArray objectAtIndex:section];
+//    lab.textColor = [UIColor whiteColor];
+//    return lab;
+//}
 //头高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 65.0;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"---->%@",[[self.letterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]);
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                    message:[[self.letterResultArr objectAtIndex:indexPath.section]objectAtIndex:indexPath.row]
-                                                   delegate:nil
-                                          cancelButtonTitle:@"YES" otherButtonTitles:nil];
-    [alert show];
-}
 
 
 
