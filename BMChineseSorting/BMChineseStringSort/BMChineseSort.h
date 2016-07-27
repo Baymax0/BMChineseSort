@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BMChineseString : NSObject
+@interface BMChineseSort : NSObject
 //进行比较的字符串，
 @property(strong,nonatomic)NSString *string;
 //字符串对应的拼音

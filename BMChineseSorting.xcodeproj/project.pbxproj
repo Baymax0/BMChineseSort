@@ -11,7 +11,7 @@
 		0AA8561F1D3925AE0051A8E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AA856101D3925AE0051A8E3 /* Assets.xcassets */; };
 		0AA856201D3925AE0051A8E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA856111D3925AE0051A8E3 /* LaunchScreen.storyboard */; };
 		0AA856211D3925AE0051A8E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA856131D3925AE0051A8E3 /* Main.storyboard */; };
-		0AA856221D3925AE0051A8E3 /* BMChineseString.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA856171D3925AE0051A8E3 /* BMChineseString.m */; };
+		0AA856221D3925AE0051A8E3 /* BMChineseSort.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA856171D3925AE0051A8E3 /* BMChineseSort.m */; };
 		0AA856231D3925AE0051A8E3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AA856181D3925AE0051A8E3 /* Info.plist */; };
 		0AA856241D3925AE0051A8E3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA856191D3925AE0051A8E3 /* main.m */; };
 		0AA856251D3925AE0051A8E3 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA8561B1D3925AE0051A8E3 /* Person.m */; };
@@ -34,8 +34,8 @@
 		0AA856101D3925AE0051A8E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AA856121D3925AE0051A8E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AA856141D3925AE0051A8E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0AA856161D3925AE0051A8E3 /* BMChineseString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMChineseString.h; sourceTree = "<group>"; };
-		0AA856171D3925AE0051A8E3 /* BMChineseString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMChineseString.m; sourceTree = "<group>"; };
+		0AA856161D3925AE0051A8E3 /* BMChineseSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMChineseSort.h; sourceTree = "<group>"; };
+		0AA856171D3925AE0051A8E3 /* BMChineseSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMChineseSort.m; sourceTree = "<group>"; };
 		0AA856181D3925AE0051A8E3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AA856191D3925AE0051A8E3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0AA8561A1D3925AE0051A8E3 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 				0AA856101D3925AE0051A8E3 /* Assets.xcassets */,
 				0AA856111D3925AE0051A8E3 /* LaunchScreen.storyboard */,
 				0AA856131D3925AE0051A8E3 /* Main.storyboard */,
-				0AA856151D3925AE0051A8E3 /* BMChineseStringSort */,
+				0AA856151D3925AE0051A8E3 /* BMChineseSort */,
 				0AA856181D3925AE0051A8E3 /* Info.plist */,
 				0AA856191D3925AE0051A8E3 /* main.m */,
 				0AA8561A1D3925AE0051A8E3 /* Person.h */,
@@ -83,12 +83,13 @@
 			path = BMChineseSorting;
 			sourceTree = "<group>";
 		};
-		0AA856151D3925AE0051A8E3 /* BMChineseStringSort */ = {
+		0AA856151D3925AE0051A8E3 /* BMChineseSort */ = {
 			isa = PBXGroup;
 			children = (
-				0AA856161D3925AE0051A8E3 /* BMChineseString.h */,
-				0AA856171D3925AE0051A8E3 /* BMChineseString.m */,
+				0AA856161D3925AE0051A8E3 /* BMChineseSort.h */,
+				0AA856171D3925AE0051A8E3 /* BMChineseSort.m */,
 			);
+			name = BMChineseSort;
 			path = BMChineseStringSort;
 			sourceTree = "<group>";
 		};
@@ -213,7 +214,7 @@
 				0AA8561E1D3925AE0051A8E3 /* AppDelegate.m in Sources */,
 				0AA856241D3925AE0051A8E3 /* main.m in Sources */,
 				0AA856251D3925AE0051A8E3 /* Person.m in Sources */,
-				0AA856221D3925AE0051A8E3 /* BMChineseString.m in Sources */,
+				0AA856221D3925AE0051A8E3 /* BMChineseSort.m in Sources */,
 				0AA856261D3925AE0051A8E3 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

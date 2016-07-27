@@ -1,13 +1,13 @@
 //
-//  BMChineseString.m
+//  BMChineseSort.m
 //
 //  Created by Baymax on 16/2/11.
 //  Copyright (c) 2016年 Baymax. All rights reserved.
 //
 
-#import "BMChineseString.h"
+#import "BMChineseSort.h"
 
-@implementation BMChineseString
+@implementation BMChineseSort
 
 
 #pragma mark ==============给 NSString数组 排序==================
@@ -18,7 +18,7 @@
     
     for (NSString* object in tempArray)
     {
-        NSString *pinyin = [((BMChineseString*)object).pinYin substringToIndex:1];
+        NSString *pinyin = [((BMChineseSort*)object).pinYin substringToIndex:1];
         //不同
         if(![tempString isEqualToString:pinyin])
         {
@@ -37,8 +37,8 @@
     //拼音分组
     for (NSString* object in tempArray) {
         
-        NSString *pinyin = [((BMChineseString*)object).pinYin substringToIndex:1];
-        NSString *string = ((BMChineseString*)object).string;
+        NSString *pinyin = [((BMChineseSort*)object).pinYin substringToIndex:1];
+        NSString *string = ((BMChineseSort*)object).string;
         //不同
         if(![tempString isEqualToString:pinyin])
         {
@@ -61,7 +61,7 @@
     NSMutableArray *chineseStringsArray=[NSMutableArray array];
     for(int i=0;i<[stringArr count];i++)
     {
-        BMChineseString *chineseString = [[BMChineseString alloc]init];
+        BMChineseSort *chineseString = [[BMChineseSort alloc]init];
         chineseString.string = [NSString stringWithString:[stringArr objectAtIndex:i]];
         if(chineseString.string == nil){
             chineseString.string = @"";
@@ -70,7 +70,7 @@
         chineseString.string  = [chineseString.string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         //这里我自己写了一个递归过滤指定字符串   RemoveSpecialCharacter
-        chineseString.string = [BMChineseString RemoveSpecialCharacter:chineseString.string];
+        chineseString.string = [BMChineseSort RemoveSpecialCharacter:chineseString.string];
         // NSLog(@"string====%@",chineseString.string);
         
         
@@ -119,7 +119,7 @@
     
     for (NSString* object in tempArray)
     {
-        NSString *pinyin = [((BMChineseString*)object).pinYin substringToIndex:1];
+        NSString *pinyin = [((BMChineseSort*)object).pinYin substringToIndex:1];
         //不同
         if(![tempString isEqualToString:pinyin])
         {
@@ -137,7 +137,7 @@
     NSMutableArray *item = [NSMutableArray array];
     NSString *tempString;
     //拼音分组
-    for (BMChineseString* object in tempArray) {
+    for (BMChineseSort* object in tempArray) {
         
         NSString *pinyin = [object.pinYin substringToIndex:1];
         id obj = object.object;
@@ -163,7 +163,7 @@
     //获取字符串中文字的拼音首字母并与字符串共同存放
     NSMutableArray *chineseStringsArray=[NSMutableArray array];
     for(int i=0;i<[stringArr count];i++){
-        BMChineseString *chineseString = [[BMChineseString alloc]init];
+        BMChineseSort *chineseString = [[BMChineseSort alloc]init];
         //获取对象对应字段的字符串
         id temp = [stringArr objectAtIndex:i];
         chineseString.string = [NSString stringWithString:[temp valueForKeyPath:key]];
@@ -175,7 +175,7 @@
         chineseString.string  = [chineseString.string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         //这里我自己写了一个递归过滤指定字符串   RemoveSpecialCharacter
-        chineseString.string = [BMChineseString RemoveSpecialCharacter:chineseString.string];
+        chineseString.string = [BMChineseSort RemoveSpecialCharacter:chineseString.string];
         // NSLog(@"string====%@",chineseString.string);
         
         //判断首字符是否为字母
