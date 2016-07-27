@@ -1,6 +1,6 @@
-# BMChineseString
+# BMChineseSort
 
-一.导入头文件#import "BMChineseString.h"
+一.导入头文件#import "BMChineseSort.h"
 
 二.使用示例
 
@@ -19,8 +19,8 @@
         [array addObject:p];
     }
     //排序
-    self.indexArray = [BMChineseString IndexWithArray:array Key:@"name"];
-    self.letterResultArr = [BMChineseString sortObjectArray:array Key:@"name"];
+    self.indexArray = [BMChineseSort IndexWithArray:array Key:@"name"];
+    self.letterResultArr = [BMChineseSort sortObjectArray:array Key:@"name"];
 
 二.运行效果
 ![](http://upload-images.jianshu.io/upload_images/1640181-42fd65f8dd151a40.gif?imageMogr2/auto-orient/strip)
