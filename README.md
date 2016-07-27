@@ -1,38 +1,26 @@
-# YUChineseSorting
+# BMChineseString
 
-一.导入头文件#import "ChineseString.h"
+一.导入头文件#import "BMChineseString.h"
 
 二.使用示例
 
     NSArray *stringsToSort=[NSArray arrayWithObjects:
-                            @"￥hhh, .$",@" ￥Chin ese ",@"开源中国 ",@"www.oschina.net",
-                            @"开源技术",@"社区",@"开发者",@"传播",
-                            @"2014",@"a1",@"100",@"中国",@"暑假作业",
-                            @"键盘", @"鼠标",@"hello",@"world",@"b1",
+                            @"李白",@"张三",
+                            @"黄晓明",@"成龙",@"斑马",@"盖伦",
+                            @"幻刺",@"暗影猎手",@"小白",@"小明",@"千珏",
+                            @"黄家驹", @"鼠标",@"hello",@"多美丽",@"肯德基",
                             nil];
-    
-    self.indexArray = [ChineseString IndexArray:stringsToSort];
-    self.letterResultArr = [ChineseString LetterSortArray:stringsToSort];
-    
-  
-  ![log](http://static.oschina.net/uploads/space/2015/1110/095952_dh2k_868062.png)
+    //模拟网络请求接收到的数组对象
+    array = [[NSMutableArray alloc] initWithCapacity:0];
+    for (int i = 0; i<[stringsToSort count]; i++) {
+        Person *p = [[Person alloc] init];
+        p.name = [stringsToSort objectAtIndex:i];
+        p.number = i;
+        [array addObject:p];
+    }
+    //排序
+    self.indexArray = [BMChineseString IndexWithArray:array Key:@"name"];
+    self.letterResultArr = [BMChineseString sortObjectArray:array Key:@"name"];
 
-  ![效果图](http://static.oschina.net/uploads/space/2014/0304/163611_Wclh_868062.png)
-
-三.注意
-因为中文排序里面有c的文件 pinyin.c
-
-plan 1：
-
-pch文件如下
-例如：
-
-      #ifdef __OBJC__
-      #import "AppDelegate.h"
-      #endif
-
-      __OBJC__表示宏内引用的文件确保只被使用Objective-C语言的文件所引用，保证引用关系的清晰。
-
-plan 2 ：
-
-pinyin.c 改为pinyin.m
+二.运行效果
+![](http://upload-images.jianshu.io/upload_images/1640181-42fd65f8dd151a40.gif?imageMogr2/auto-orient/strip)
