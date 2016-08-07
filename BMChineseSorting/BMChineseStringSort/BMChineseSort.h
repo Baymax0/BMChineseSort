@@ -15,6 +15,15 @@
 //需要比较的对象
 @property (strong , nonatomic) id object;
 
+/**
+ *  根据汉字返回汉字的拼音
+ *
+ *  @param word 一个汉字
+ *
+ *  @return 拼音的字符串
+ */
++(NSString *)transformChinese:(NSString *)word;
+
 #pragma mark =========比较字符串数组==========
 /**
  *  排序后的首字母（不重复）用于tableView的右侧索引

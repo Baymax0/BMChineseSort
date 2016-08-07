@@ -10,6 +10,13 @@
 @implementation BMChineseSort
 
 
++(NSString *)transformChinese:(NSString *)word{
+    NSMutableString *pinyin = [word mutableCopy];
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
+    return [pinyin uppercaseString];
+}
+
 #pragma mark ==============给 NSString数组 排序==================
 +(NSMutableArray*)IndexArray:(NSArray*)stringArr{
     NSMutableArray *tempArray = [self ReturnSortChineseArrar:stringArr];
