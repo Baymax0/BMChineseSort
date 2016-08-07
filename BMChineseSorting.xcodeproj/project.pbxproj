@@ -64,21 +64,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A045CFA1D57700E00A2BA30 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0AA8561A1D3925AE0051A8E3 /* Person.h */,
+				0AA8561B1D3925AE0051A8E3 /* Person.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		0A045CFB1D57701C00A2BA30 /* suportfiles */ = {
+			isa = PBXGroup;
+			children = (
+				0AA856101D3925AE0051A8E3 /* Assets.xcassets */,
+				0AA856111D3925AE0051A8E3 /* LaunchScreen.storyboard */,
+				0AA856131D3925AE0051A8E3 /* Main.storyboard */,
+				0AA856181D3925AE0051A8E3 /* Info.plist */,
+				0AA856191D3925AE0051A8E3 /* main.m */,
+			);
+			name = suportfiles;
+			sourceTree = "<group>";
+		};
 		0AA8560D1D3925AE0051A8E3 /* BMChineseSorting */ = {
 			isa = PBXGroup;
 			children = (
 				0AA8560E1D3925AE0051A8E3 /* AppDelegate.h */,
 				0AA8560F1D3925AE0051A8E3 /* AppDelegate.m */,
-				0AA856101D3925AE0051A8E3 /* Assets.xcassets */,
-				0AA856111D3925AE0051A8E3 /* LaunchScreen.storyboard */,
-				0AA856131D3925AE0051A8E3 /* Main.storyboard */,
-				0AA856151D3925AE0051A8E3 /* BMChineseSort */,
-				0AA856181D3925AE0051A8E3 /* Info.plist */,
-				0AA856191D3925AE0051A8E3 /* main.m */,
-				0AA8561A1D3925AE0051A8E3 /* Person.h */,
-				0AA8561B1D3925AE0051A8E3 /* Person.m */,
 				0AA8561C1D3925AE0051A8E3 /* ViewController.h */,
 				0AA8561D1D3925AE0051A8E3 /* ViewController.m */,
+				0A045CFA1D57700E00A2BA30 /* Model */,
+				0AA856151D3925AE0051A8E3 /* BMChineseSort */,
+				0A045CFB1D57701C00A2BA30 /* suportfiles */,
 			);
 			path = BMChineseSorting;
 			sourceTree = "<group>";

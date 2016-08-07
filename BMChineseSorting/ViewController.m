@@ -11,10 +11,11 @@
 #import "Person.h"
 
 @interface ViewController (){
-    NSMutableArray<Person *> *array;
+    NSMutableArray<Person *> *dataArray;
 }
-
+//排序后的出现过的拼音首字母数组（形式：@[@"a",@"f",@"g",@"z"]）
 @property(nonatomic,strong)NSMutableArray *indexArray;
+//排序好的结果数组（形式：@[@[对象1(a开头)，对象2(a开头)], @[对象3(c开头)，对象4(c开头)]]）
 @property(nonatomic,strong)NSMutableArray *letterResultArr;
 @end
 
@@ -23,29 +24,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self loadData];
+    //根据Person对象的 name 属性 按中文 对 Person数组 排序
+    self.indexArray = [BMChineseSort IndexWithArray:dataArray Key:@"name"];
+    self.letterResultArr = [BMChineseSort sortObjectArray:dataArray Key:@"name"];
+
+    UITableView *table = [[UITableView alloc] initWithFrame:self.view.frame];
+    table.delegate = self;
+    table.dataSource = self;
+    [self.view addSubview:table];
+}
+//加载模拟数据
+-(void)loadData{
     NSArray *stringsToSort=[NSArray arrayWithObjects:
                             @"李白",@"张三",
                             @"黄晓明",@"成龙",@"斑马",@"盖伦",
                             @"幻刺",@"暗影猎手",@"小白",@"小明",@"千珏",
                             @"黄家驹", @"鼠标",@"hello",@"多美丽",@"肯德基",
                             nil];
+    
     //模拟网络请求接收到的数组对象
-    array = [[NSMutableArray alloc] initWithCapacity:0];
+    dataArray = [[NSMutableArray alloc] initWithCapacity:0];
     for (int i = 0; i<[stringsToSort count]; i++) {
         Person *p = [[Person alloc] init];
         p.name = [stringsToSort objectAtIndex:i];
         p.number = i;
-        [array addObject:p];
+        [dataArray addObject:p];
     }
-    
-    //排序
-    self.indexArray = [BMChineseSort IndexWithArray:array Key:@"name"];
-    self.letterResultArr = [BMChineseSort sortObjectArray:array Key:@"name"];
-
-    UITableView *table = [[UITableView alloc] initWithFrame:self.view.frame];
-    table.delegate = self;
-    table.dataSource = self;
-    [self.view addSubview:table];
 }
 
 #pragma mark - UITableViewDataSource
