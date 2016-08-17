@@ -7,9 +7,18 @@
 
 #import "BMChineseSort.h"
 
+@interface BMChineseSort()
+//用将需要排序的对象封装在BMChineseSort对象中，包含排序的字符串，对象，首字母三个属性
+//进行比较的字符串，
+@property(strong,nonatomic)NSString *string;
+//字符串对应的拼音
+@property(strong,nonatomic)NSString *pinYin;
+//需要比较的对象
+@property (strong , nonatomic) id object;
+
+@end
+
 @implementation BMChineseSort
-
-
 +(NSString *)transformChinese:(NSString *)word{
     NSMutableString *pinyin = [word mutableCopy];
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
@@ -207,7 +216,7 @@
                 }
                 chineseString.pinYin = pinYinResult;
             }else{
-                chineseString.pinYin = @"";
+                chineseString.pinYin = @"#";
             }
         }
         [chineseStringsArray addObject:chineseString];

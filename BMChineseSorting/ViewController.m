@@ -13,9 +13,9 @@
 @interface ViewController (){
     NSMutableArray<Person *> *dataArray;
 }
-//排序后的出现过的拼音首字母数组（形式：@[@"a",@"f",@"g",@"z"]）
+//排序后的出现过的拼音首字母数组
 @property(nonatomic,strong)NSMutableArray *indexArray;
-//排序好的结果数组（形式：@[@[对象1(a开头)，对象2(a开头)], @[对象3(c开头)，对象4(c开头)]]）
+//排序好的结果数组
 @property(nonatomic,strong)NSMutableArray *letterResultArr;
 @end
 
@@ -40,7 +40,7 @@
                             @"李白",@"张三",
                             @"黄晓明",@"成龙",@"斑马",@"盖伦",
                             @"幻刺",@"暗影猎手",@"小白",@"小明",@"千珏",
-                            @"黄家驹", @"鼠标",@"hello",@"多美丽",@"肯德基",
+                            @"黄家驹", @"鼠标",@"hello",@"多美丽",@"肯德基",@"##",
                             nil];
     
     //模拟网络请求接收到的数组对象

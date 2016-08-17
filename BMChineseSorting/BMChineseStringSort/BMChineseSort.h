@@ -8,13 +8,6 @@
 #import <Foundation/Foundation.h>
 
 @interface BMChineseSort : NSObject
-//进行比较的字符串，
-@property(strong,nonatomic)NSString *string;
-//字符串对应的拼音
-@property(strong,nonatomic)NSString *pinYin;
-//需要比较的对象
-@property (strong , nonatomic) id object;
-
 /**
  *  根据汉字返回汉字的拼音
  *
@@ -63,7 +56,5 @@
  *  @return 根据字段排序后的对象数组(同首写字母的在一个数组中)
  */
 +(NSMutableArray*)sortObjectArray:(NSArray*)objectArray Key:(NSString *)key;
-
-char pinyinFirstLetter(unsigned short hanzi);
 
 @end
