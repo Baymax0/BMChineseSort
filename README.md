@@ -1,11 +1,14 @@
 # BMChineseSort
 一.import
+
     #import "BMChineseSort.h"
 
 二.获得排序结果
+
     self.indexArray = [BMChineseSort IndexWithArray:array Key:@"name"];
     self.letterResultArr = [BMChineseSort sortObjectArray:array Key:@"name"];
 三.使用排序结果
+
     #pragma mark - UITableView -
     //section的titleHeader
     - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
