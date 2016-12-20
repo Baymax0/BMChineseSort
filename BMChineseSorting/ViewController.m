@@ -24,7 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //模拟数据加载 dataArray中得到Person的数组
     [self loadData];
+    
     //根据Person对象的 name 属性 按中文 对 Person数组 排序
     self.indexArray = [BMChineseSort IndexWithArray:dataArray Key:@"name"];
     self.letterResultArr = [BMChineseSort sortObjectArray:dataArray Key:@"name"];
@@ -38,12 +40,13 @@
 -(void)loadData{
     NSArray *stringsToSort=[NSArray arrayWithObjects:
                             @"李白",@"张三",
-                            @"黄晓明",@"成龙",@"斑马",@"盖伦",
-                            @"幻刺",@"暗影猎手",@"小白",@"小明",@"千珏",
+                            @"重庆",@"重量",
+                            @"调节",@"调用",
+                            @"小白",@"小明",@"千珏",
                             @"黄家驹", @"鼠标",@"hello",@"多美丽",@"肯德基",@"##",
                             nil];
     
-    //模拟网络请求接收到的数组对象
+    //模拟网络请求接收到的数组对象 Person数组
     dataArray = [[NSMutableArray alloc] initWithCapacity:0];
     for (int i = 0; i<[stringsToSort count]; i++) {
         Person *p = [[Person alloc] init];
@@ -53,7 +56,7 @@
     }
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - UITableView -
 //section的titleHeader
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return [self.indexArray objectAtIndex:section];
@@ -80,7 +83,7 @@
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CELL"];
     }
-    //获得对应的Person对象
+    //获得对应的Person对象<替换为你自己的model对象>
     Person *p = [[self.letterResultArr objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.textLabel.text = p.name;
     return cell;

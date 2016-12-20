@@ -6,6 +6,8 @@
 //
 
 #import "BMChineseSort.h"
+//特殊字符统一合并后的  显示字符
+#define AbnormalLetter @"#"
 
 @interface BMChineseSort()
 //用将需要排序的对象封装在BMChineseSort对象中，包含排序的字符串，对象，首字母三个属性
@@ -99,18 +101,9 @@
             chineseString.pinYin = [chineseString.string capitalizedString] ;
         }else{
             if(![chineseString.string isEqualToString:@""]){
-                NSString *pinYinResult = [NSString string];
-                for(int j=0;j<chineseString.string.length;j++){
-                    NSString *singlePinyinLetter = [[NSString stringWithFormat:@"%c",
-                                                     
-                                                     pinyinFirstLetter([chineseString.string characterAtIndex:j])]uppercaseString];
-                    //                    NSLog(@"singlePinyinLetter ==%@",singlePinyinLetter);
-                    
-                    pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
-                }
-                chineseString.pinYin = pinYinResult;
+                chineseString.pinYin = [self getFirstLetter:chineseString.string];
             }else{
-                chineseString.pinYin = @"";
+                chineseString.pinYin = AbnormalLetter;
             }
         }
         [chineseStringsArray addObject:chineseString];
@@ -118,11 +111,6 @@
     //按照拼音首字母对这些Strings进行排序
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinYin" ascending:YES]];
     [chineseStringsArray sortUsingDescriptors:sortDescriptors];
-    
-    //    for(int i=0;i<[chineseStringsArray count];i++){
-    //        NSLog(@"chineseStringsArray====%@",((ChineseString*)[chineseStringsArray objectAtIndex:i]).pinYin);
-    //    }
-    NSLog(@"-----------------------------");
     return chineseStringsArray;
 }
 
@@ -139,7 +127,6 @@
         //不同
         if(![tempString isEqualToString:pinyin])
         {
-            // NSLog(@"IndexArray----->%@",pinyin);
             [A_Result addObject:pinyin];
             tempString = pinyin;
         }
@@ -148,6 +135,9 @@
 }
 //给对象数组排序
 +(NSMutableArray*)sortObjectArray:(NSArray*)objectArray Key:(NSString *)key{
+    //计算函数耗时
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
     NSMutableArray *tempArray = [self ReturnSortObjectArrar:objectArray key:key];
     NSMutableArray *LetterResult = [NSMutableArray array];
     NSMutableArray *item = [NSMutableArray array];
@@ -171,6 +161,13 @@
             [item  addObject:obj];
         }
     }
+    
+    if (BMLog==1) {
+        CFAbsoluteTime useTime = (CFAbsoluteTimeGetCurrent() - startTime);
+        NSLog(@"BMChineseSort user time in %f ms", useTime *1000.0);
+    }
+
+    
     return LetterResult;
 }
 
@@ -192,7 +189,6 @@
         
         //这里我自己写了一个递归过滤指定字符串   RemoveSpecialCharacter
         chineseString.string = [BMChineseSort RemoveSpecialCharacter:chineseString.string];
-        // NSLog(@"string====%@",chineseString.string);
         
         //判断首字符是否为字母
         NSString *regex = @"[A-Za-z]+";
@@ -200,23 +196,13 @@
         NSString *initialStr = [chineseString.string length]?[chineseString.string substringToIndex:1]:@"";
         if ([predicate evaluateWithObject:initialStr])
         {
-            NSLog(@"chineseString.string== %@",chineseString.string);
             //首字母大写
             chineseString.pinYin = [chineseString.string capitalizedString] ;
         }else{
             if(![chineseString.string isEqualToString:@""]){
-                NSString *pinYinResult = [NSString string];
-                for(int j=0;j<chineseString.string.length;j++){
-                    NSString *singlePinyinLetter = [[NSString stringWithFormat:@"%c",
-                                                     
-                                                     pinyinFirstLetter([chineseString.string characterAtIndex:j])]uppercaseString];
-                    //                    NSLog(@"singlePinyinLetter ==%@",singlePinyinLetter);
-                    
-                    pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
-                }
-                chineseString.pinYin = pinYinResult;
+                chineseString.pinYin = [self getFirstLetter:chineseString.string];
             }else{
-                chineseString.pinYin = @"#";
+                chineseString.pinYin = AbnormalLetter;
             }
         }
         [chineseStringsArray addObject:chineseString];
@@ -225,24 +211,79 @@
     NSArray *sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"pinYin" ascending:YES]];
     [chineseStringsArray sortUsingDescriptors:sortDescriptors];
     
-    //    for(int i=0;i<[chineseStringsArray count];i++){
-    //        NSLog(@"chineseStringsArray====%@",((ChineseString*)[chineseStringsArray objectAtIndex:i]).pinYin);
-    //    }
     return chineseStringsArray;
 }
 
 
 //过滤指定字符串   里面的指定字符根据自己的需要添加 过滤特殊字符
 +(NSString*)RemoveSpecialCharacter: (NSString *)str {
-    NSRange urgentRange = [str rangeOfCharacterFromSet: [NSCharacterSet characterSetWithCharactersInString: @",.？、 ~￥#&<>《》()[]{}【】^@/￡¤|§¨「」『』￠￢￣~@#&*（）——+|《》$_€"]];
+    NSRange urgentRange = [str rangeOfCharacterFromSet: [NSCharacterSet characterSetWithCharactersInString: @",.？、~￥#&<>《》()[]{}【】^@/￡¤|§¨「」『』￠￢￣~@#&*（）——+|《》$_€"]];
     if (urgentRange.location != NSNotFound){
         return [self RemoveSpecialCharacter:[str stringByReplacingCharactersInRange:urgentRange withString:@""]];
     }
     return str;
 }
 
++ (NSString *)getFirstLetter:(NSString *)chinese{
+    //mode = 1
+    if (BMSortMode==1) {
+        return [self getFirstLetter1:chinese];
+    }
+    //mode = 2
+    else{
+        return [self getFirstLetter1:chinese];
+    }
+}
 
 #pragma mark ===============获取汉字首字母====================
+//获得词语中每个字的首字母
++ (NSString *)getFirstLetter1:(NSString *)chinese{
+    NSMutableString *pinyin = [chinese mutableCopy];
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
+    if ([pinyin isEqualToString:@""]) {
+        return AbnormalLetter;
+    }
+    //把拼音按字分开
+    NSArray *letterArray = [pinyin componentsSeparatedByString:@" "];
+    if (!letterArray||letterArray.count==0) {
+        return AbnormalLetter;
+    }
+    NSMutableString *result = @"".mutableCopy;
+    for (NSString *letter in letterArray) {
+        [result appendString:[letter substringToIndex:1]];
+    }
+    result = [result uppercaseString].mutableCopy;
+    //判断第一个字符是否为字母
+    if ([self isCatipalLetter:result]) {
+        return result;
+    }else{
+        return AbnormalLetter;
+    }
+    return [result uppercaseString];
+}
+
+//判断第一个字符是否是大写字母
++ (BOOL)isCatipalLetter:(NSString *)str{
+    if ([str characterAtIndex:0] >= 'A' && [str characterAtIndex:0] <= 'Z') {
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark ===============获取汉字首字母====================
+//获得词语中每个字的首字母
++ (NSString *)getFirstLetter2:(NSString *)chinese{
+    NSString *pinYinResult = [NSString string];
+    for(int j=0;j<chinese.length;j++){
+        NSString *singlePinyinLetter = [[NSString stringWithFormat:@"%c",
+                                         pinyinFirstLetter([chinese characterAtIndex:j])]uppercaseString];
+        pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
+    }
+    return pinYinResult;
+}
+
+
 static char firstLetterArray[20902] =
 "ydkqsxnwzssxjbymgcczqpssqbycdscdqldylybssjgyqzjjfgcclzznwdwzjljpfyynnjjtmynzwzhflzppqhgccyynmjqyxxgd"
 "nnsnsjnjnsnnmlnrxyfsngnnnnqzggllyjlnyzssecykyyhqwjssggyxyqyjtwktjhychmnxjtlhjyqbyxdldwrrjnwysrldzjpc"
@@ -464,4 +505,6 @@ char pinyinFirstLetter(unsigned short hanzi)
         return '#';
     }
 }
+
+
 @end
