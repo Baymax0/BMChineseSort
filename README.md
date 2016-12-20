@@ -1,4 +1,4 @@
-# BMChineseSort
+# BMChineseSort使用方法
 一.import
 
     #import "BMChineseSort.h"
@@ -42,13 +42,13 @@
         return cell;
     }
 
-###其他
+# 其他
 
-添加了系统汉字解析的方式，通过修改BMChineseSort.h文件的BMSortMode切换
-
-BMSortMode==1使用系统解析汉字拼音方法，准确性有保障，同时能区分一部分的多音字如（重庆，重量）（*经过测试发现仅仅能区分很小一部分多音字）
+添加了使用系统汉字解析的方式，通过修改BMChineseSort.h文件的BMSortMode切换
+####BMSortMode==1
+使用系统解析汉字拼音方法，准确性有保障，同时能区分一部分的多音字如（重庆，重量）（*经过测试发现仅仅能区分很小一部分多音字）
 数据比较多的话非常耗时！非常耗时！非常耗时！、（如果数据量不大，可以使用这个）
-
-BMSortMode==2使用一个放在内存中的拼音数组进行查询，对于多音字没有任何判断，但是效率远超过BMSortMode=1
+####BMSortMode==2
+使用一个放在内存中的拼音数组进行查询，对于多音字没有任何判断，但是效率远超过BMSortMode=1
 
 可通过BMLog=1开启打印耗时进行比较后选择，默认选择BMSortMode==2
