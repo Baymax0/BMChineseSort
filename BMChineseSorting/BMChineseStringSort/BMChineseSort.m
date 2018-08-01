@@ -6,8 +6,31 @@
 //
 
 #import "BMChineseSort.h"
-//特殊字符统一合并后的  显示字符
-#define AbnormalLetter @"#"
+
+
+@implementation BMChineseSortSetting
+
++(BMChineseSortSetting*)share{
+    static BMChineseSortSetting * singleton = nil ;
+    if (singleton == nil) {
+        singleton = [[BMChineseSortSetting alloc] init];
+        [singleton defaultValue];
+    }
+    return singleton;
+}
+
+-(void)defaultValue{
+    _sortMode = 1;
+    _printCostTime = NO;
+    _abnormalLetterTitle = @"#";
+    _abnormalLetterString = @"";
+}
+
+
+@end
+
+
+
 
 @interface BMChineseSort()
 //用将需要排序的对象封装在BMChineseSort对象中，包含排序的字符串，对象，首字母三个属性
@@ -103,7 +126,7 @@
             if(![chineseString.string isEqualToString:@""]){
                 chineseString.pinYin = [self getFirstLetter:chineseString.string];
             }else{
-                chineseString.pinYin = AbnormalLetter;
+                chineseString.pinYin = BMChineseSortSetting.share.abnormalLetterTitle;
             }
         }
         [chineseStringsArray addObject:chineseString];
@@ -162,12 +185,10 @@
         }
     }
     
-    if (BMLog==1) {
+    if (BMChineseSortSetting.share.printCostTime==1) {
         CFAbsoluteTime useTime = (CFAbsoluteTimeGetCurrent() - startTime);
-        NSLog(@"BMChineseSort user time in %f ms", useTime *1000.0);
+        NSLog(@"BMChineseSort use time in %f ms", useTime *1000.0);
     }
-
-    
     return LetterResult;
 }
 
@@ -202,7 +223,7 @@
             if(![chineseString.string isEqualToString:@""]){
                 chineseString.pinYin = [self getFirstLetter:chineseString.string];
             }else{
-                chineseString.pinYin = AbnormalLetter;
+                chineseString.pinYin = BMChineseSortSetting.share.abnormalLetterTitle;
             }
         }
         [chineseStringsArray addObject:chineseString];
@@ -217,7 +238,7 @@
 
 //过滤指定字符串   里面的指定字符根据自己的需要添加 过滤特殊字符
 +(NSString*)RemoveSpecialCharacter: (NSString *)str {
-    NSRange urgentRange = [str rangeOfCharacterFromSet: [NSCharacterSet characterSetWithCharactersInString: @",.？、~￥#&<>《》()[]{}【】^@/￡¤|§¨「」『』￠￢￣~@#&*（）——+|《》$_€"]];
+    NSRange urgentRange = [str rangeOfCharacterFromSet: [NSCharacterSet characterSetWithCharactersInString: BMChineseSortSetting.share.abnormalLetterString]];
     if (urgentRange.location != NSNotFound){
         return [self RemoveSpecialCharacter:[str stringByReplacingCharactersInRange:urgentRange withString:@""]];
     }
@@ -226,12 +247,12 @@
 
 + (NSString *)getFirstLetter:(NSString *)chinese{
     //mode = 1
-    if (BMSortMode==1) {
+    if (BMChineseSortSetting.share.sortMode==1) {
         return [self getFirstLetter1:chinese];
     }
     //mode = 2
     else{
-        return [self getFirstLetter1:chinese];
+        return [self getFirstLetter2:chinese];
     }
 }
 
@@ -242,12 +263,12 @@
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
     if ([pinyin isEqualToString:@""]) {
-        return AbnormalLetter;
+        return BMChineseSortSetting.share.abnormalLetterTitle;
     }
     //把拼音按字分开
     NSArray *letterArray = [pinyin componentsSeparatedByString:@" "];
     if (!letterArray||letterArray.count==0) {
-        return AbnormalLetter;
+        return BMChineseSortSetting.share.abnormalLetterTitle;
     }
     NSMutableString *result = @"".mutableCopy;
     for (NSString *letter in letterArray) {
@@ -258,7 +279,7 @@
     if ([self isCatipalLetter:result]) {
         return result;
     }else{
-        return AbnormalLetter;
+        return BMChineseSortSetting.share.abnormalLetterTitle;
     }
     return [result uppercaseString];
 }
@@ -278,12 +299,13 @@
     for(int j=0;j<chinese.length;j++){
         NSString *singlePinyinLetter = [[NSString stringWithFormat:@"%c",
                                          pinyinFirstLetter([chinese characterAtIndex:j])]uppercaseString];
+        singlePinyinLetter = [singlePinyinLetter isEqualToString: @"#"]?BMChineseSortSetting.share.abnormalLetterTitle:singlePinyinLetter;
         pinYinResult = [pinYinResult stringByAppendingString:singlePinyinLetter];
     }
     return pinYinResult;
 }
 
-
+//汉字码表对应的首字母
 static char firstLetterArray[20902] =
 "ydkqsxnwzssxjbymgcczqpssqbycdscdqldylybssjgyqzjjfgcclzznwdwzjljpfyynnjjtmynzwzhflzppqhgccyynmjqyxxgd"
 "nnsnsjnjnsnnmlnrxyfsngnnnnqzggllyjlnyzssecykyyhqwjssggyxyqyjtwktjhychmnxjtlhjyqbyxdldwrrjnwysrldzjpc"

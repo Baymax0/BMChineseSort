@@ -175,6 +175,7 @@
 				TargetAttributes = {
 					67C453761AE3F1E200C595AD = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 34BD4U8K6Y;
 					};
 					67C4538F1AE3F1E200C595AD = {
 						CreatedOnToolsVersion = 6.3;
@@ -356,9 +357,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 34BD4U8K6Y;
 				INFOPLIST_FILE = BMChineseSorting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = BMChineseSorting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yimi.wangfuAgent;
 				PRODUCT_NAME = BMChineseSorting;
 			};
 			name = Debug;
@@ -367,9 +369,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 34BD4U8K6Y;
 				INFOPLIST_FILE = BMChineseSorting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = BMChineseSorting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yimi.wangfuAgent;
 				PRODUCT_NAME = BMChineseSorting;
 			};
 			name = Release;
