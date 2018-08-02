@@ -6,42 +6,47 @@
 //
 
 #import <Foundation/Foundation.h>
-
+/**
+    排序参数设置类
+ */
 @interface BMChineseSortSetting : NSObject
-
 +(BMChineseSortSetting*)share;
-
-/* mode 可选择1 或 2（可以分别使用看下加载时间做选择，时间差不多选mode=1）
- *
- * 1 - 使用系统解析汉字拼音方法，准确性有保障，同时能区分一部分的多音字如（重庆，重量）（*经过测试发现仅仅能区分很小一部分多音字）
- *   数据比较多的话非常耗时！非常耗时！非常耗时！、（如果数据量不大，推荐使用这个）
- * 2 - 使用一个放在内存中的拼音数组进行查询，对于多音字没有任何判断，
- *   但是效率远超过mode=1，如果显示要求不高且数据量不小推荐用mode=2
- *
- * （*使用mode=1的话可以对结果进行缓存，可减少加载时间）
- * （*所有未区分的多音字都按默认拼音处理）
+/**
+    排序的时间主要花在 中文转拼音上 sortMode 选择转换的方法 default is 2
+    sortMode = 1 使用CFStringTransform 方法转换，比较耗时
+    sortMode = 2 使用汉字码表对应的首字母码表 通过编码顺序查找 比较快
+                 码表来源于网络 不保证准确性，可以码表配合polyphoneMapping手动修改错误的映射
  */
 @property (nonatomic,assign) NSInteger sortMode;
 /**
-    特殊字符最后单独分组所用的 分组名称
-    default = NO
+    是否打印所用时间。 default is YES
  */
-@property (nonatomic,assign) BOOL printCostTime;
+@property (nonatomic,assign) BOOL logEable;
 /**
-    特殊字符最后单独分组所用的 分组名称
-    default = #
+    特殊字符最后单独分组所用的 分组名称。 default is @“#”
  */
-@property (strong, nonatomic) NSString * abnormalLetterTitle;
+@property (strong, nonatomic) NSString *  specialCharSectionTitle;
 /**
-    需要排除的特殊字符 默认不排除
+    剔除 特定字符开头的对象，不出现在最终结果集中，不要与 specialCharSectionTitle 冲突。 default is ""
+    eg: 过滤所有数字开的对象  ignoreModelWithPrefix = @"0123456789"
  */
-@property (strong, nonatomic) NSString * abnormalLetterString;
+@property (strong, nonatomic) NSString * ignoreModelWithPrefix;
+/**
+    常用错误多音字 手动映射
+    已经识别了：
+        重庆=CQ，厦门=XM，长=C，
+    如遇到默认选择错误的可以手动映射，使用格式{"匹配的文字":"对应的首字母(大写)"}
+    eg:.polyphoneMapping = @{"长安":"CA","厦门":"XM"}
+    如有发现常用的 也可以在issue里提出来 定期更新
+ */
+@property (strong, nonatomic) NSMutableDictionary * polyphoneMapping;
 @end
 
 
-
+/**
+    排序主体类
+ */
 @interface BMChineseSort : NSObject
-
 /**
  *  根据汉字返回汉字的拼音
  *
@@ -51,44 +56,14 @@
  */
 +(NSString *)transformChinese:(NSString *)word;
 
-#pragma mark =========比较字符串数组==========
-/**
- *  排序后的首字母（不重复）用于tableView的右侧索引
- *
- *  @param stringArr 需要排序的字符数组
- *
- *  @return 排序后的首字母（不重复）
- */
-+(NSMutableArray*)IndexArray:(NSArray*)stringArr;
 
 /**
- *  返回联系人
- *
- *  @param stringArr 需要排序的字符数组
- *
- *  @return 更具首字母排序后的字符数组
- */
-+(NSMutableArray*)LetterSortArray:(NSArray*)stringArr;
+ 异步获取拼音分组排序
 
-#pragma mark =========比较对象数组==========
-/**
- *  排序后的首字母（不重复）用于tableView的右侧索引
- *
- *  @param objectArray  需要排序的对象数组
- *  @param key          需要比较的对象的字段
- *
- *  @return 排序后的首字母（不重复）
+ @param objectArray 需要排序的数据源 可以是自定义模型数组，字符串数组，字典数组
+ @param key 如果是字符串数组key传nil, 否则传入需要排序的字符串属性，或是字符串字段
+ @param finish 异步回调block isSuccess为no, 打开打印功能查看原因
  */
-+(NSMutableArray*)IndexWithArray:(NSArray*)objectArray Key:(NSString *)key;
-
-/**
- *  给对象数组排序
- *
- *  @param stringArr 需要排序的对象数组
- *  @param key       需要比较的对象的字段
- *
- *  @return 根据字段排序后的对象数组(同首写字母的在一个数组中)
- */
-+(NSMutableArray*)sortObjectArray:(NSArray*)objectArray Key:(NSString *)key;
++(void)sortWithArray:(NSArray*)objectArray key:(NSString *)key finish:(void (^)(bool isSuccess, NSMutableArray<NSString*> *sectionTitleArr, NSMutableArray<NSMutableArray*>* sortedObjArr))finish;
 
 @end

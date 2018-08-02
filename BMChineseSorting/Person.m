@@ -1,9 +1,9 @@
 //
 //  Person.m
-//  YUChineseSorting
+//  BMChineseSortDemo
 //
-//  Created by LZW on 16/2/18.
-//  Copyright © 2016年 BruceYu. All rights reserved.
+//  Created by Baymax on 16/2/11.
+//  Copyright (c) 2016年 Baymax. All rights reserved.
 //
 
 #import "Person.h"
