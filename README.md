@@ -1,9 +1,11 @@
 BMChineseSort
 =======================
-## Introduction
-`BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。
 [![Use Language](https://img.shields.io/badge/language-objc-blue.svg)](https://github.com/Baymax0/BMChineseSort)
 ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg?style=popout)
+
+## Introduction
+`BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。
+
 
 ## Introduction
 
