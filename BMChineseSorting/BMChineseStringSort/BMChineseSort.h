@@ -37,7 +37,7 @@
         重庆=CQ，厦门=XM，长=C，
     如遇到默认选择错误的可以手动映射，使用格式{"匹配的文字":"对应的首字母(大写)"}
     eg:.polyphoneMapping = @{"长安":"CA","厦门":"XM"}
-    如有发现常用的 也可以在issue里提出来 定期更新
+    如有发现常用的多音字 也可以在issue里提出来 定期更新
  */
 @property (strong, nonatomic) NSMutableDictionary * polyphoneMapping;
 @end
@@ -47,12 +47,12 @@
     排序主体类
  */
 @interface BMChineseSort : NSObject
+
 /**
- *  根据汉字返回汉字的拼音
- *
- *  @param word 一个汉字
- *
- *  @return 拼音的字符串
+ 根据汉字返回汉字的拼音
+
+ @param word 转换的汉字
+ @return 返回对应的拼音
  */
 +(NSString *)transformChinese:(NSString *)word;
 
@@ -64,6 +64,7 @@
  @param key 如果是字符串数组key传nil, 否则传入需要排序的字符串属性，或是字符串字段
  @param finish 异步回调block isSuccess为no, 打开打印功能查看原因
  */
+
 +(void)sortWithArray:(NSArray*)objectArray key:(NSString *)key finish:(void (^)(bool isSuccess, NSMutableArray<NSString*> *sectionTitleArr, NSMutableArray<NSMutableArray*>* sortedObjArr))finish;
 
 @end

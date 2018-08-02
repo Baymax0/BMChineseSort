@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface Person : NSObject
-
 @property (strong , nonatomic) NSString * name;
 @property (assign , nonatomic) NSInteger number;
-@property (strong , nonatomic) NSString * signature;
-
-
 @end
