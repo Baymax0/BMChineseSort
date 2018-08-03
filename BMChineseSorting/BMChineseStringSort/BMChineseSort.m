@@ -26,7 +26,11 @@
     _specialCharSectionTitle = @"#";
     _ignoreModelWithPrefix = @"";
     _polyphoneMapping = [NSMutableDictionary dictionaryWithDictionary:
-                         @{@"重庆":@"CQ",@"厦门":@"XM",@"长":@"c",}];
+                         @{@"重庆":@"CQ",
+                           @"厦门":@"XM",
+                           @"长":@"C",
+                           @"沈":@"S",
+                           }];
 }
 
 -(void)setPolyphoneMapping:(NSMutableDictionary *)polyphoneMapping{
@@ -51,19 +55,29 @@
 //数组操作信号量
 dispatch_semaphore_t semaphore;
 
-@implementation BMChineseSort
 
+
+@implementation BMChineseSort
+#pragma mark ============== tools ==================
+//中文转拼音 ABC苹果 -> @"ABC ping guo" xiaoxie
 +(NSString *)transformChinese:(NSString *)word{
     NSMutableString *pinyin = [word mutableCopy];
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
-    return [pinyin uppercaseString];
+    return pinyin;
 }
 
-#pragma mark ==============给 对象数组 根据某个属性 排序==================
-+(void)sortWithArray:(NSArray*)objectArray key:(NSString *)key finish:(void (^)(bool isSuccess, NSMutableArray<NSString*> *sectionTitleArr, NSMutableArray<NSMutableArray*>* sortedObjArr))finish{
+#pragma mark ==============  排序  ==================
+
++(void)sortAndGroup:(NSArray*)objectArray
+                key:(NSString *)key
+             finish:(void (^)(bool isSuccess,
+                              NSMutableArray *unGroupArr,
+                              NSMutableArray *sectionTitleArr,
+                              NSMutableArray<NSMutableArray*>* sortedObjArr))finish{
+
     if (!objectArray || objectArray.count == 0) {
-        finish(YES,@[].mutableCopy,@[].mutableCopy);
+        finish(YES,@[].mutableCopy,@[].mutableCopy,@[].mutableCopy);
         return;
     }
     //非法 属性名 检测
@@ -72,7 +86,7 @@ dispatch_semaphore_t semaphore;
     if (key == nil) {
         if (![obj isKindOfClass:NSString.class]) {
             [BMChineseSort logMsg:@"数组内元素不是字符串类型,如果是对象类型，请传key"];
-            finish(NO,nil,nil);
+            finish(NO,nil,nil,nil);
             return;
         }
         containKey = YES;
@@ -91,7 +105,7 @@ dispatch_semaphore_t semaphore;
     }
     if (!containKey) {
         [BMChineseSort logMsg:@"数组内元素未包含指定属性"];
-        finish(NO,nil,nil);
+        finish(NO,nil,nil,nil);
         return;
     }
     CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
@@ -125,6 +139,10 @@ dispatch_semaphore_t semaphore;
         CFAbsoluteTime state2 = CFAbsoluteTimeGetCurrent();
         [BMChineseSort logMsg:[NSString stringWithFormat:@"排序用时：\t %f s", (state2-state1)]];
 
+
+        //不分组
+        NSMutableArray *unSortedArr = [NSMutableArray array];
+
         //分组
         NSMutableArray<NSString *> *sectionTitleArr = [NSMutableArray array];
         NSMutableArray<NSMutableArray *> *sortedObjArr = [NSMutableArray array];
@@ -134,6 +152,7 @@ dispatch_semaphore_t semaphore;
         for (BMChineseSortModel* object in sortModelArray) {
             NSString *firstLetter = [object.pinYin substringToIndex:1];
             id obj = object.object;
+            [unSortedArr addObject:obj];
             //不同
             if(![lastTitle isEqualToString:firstLetter]){
                 [sectionTitleArr addObject:firstLetter];
@@ -154,7 +173,7 @@ dispatch_semaphore_t semaphore;
 
         //回主线程
         dispatch_async(dispatch_get_main_queue(), ^{
-            finish(YES,sectionTitleArr,sortedObjArr);
+            finish(YES,unSortedArr,sectionTitleArr,sortedObjArr);
         });
     });
 }
@@ -195,45 +214,48 @@ dispatch_semaphore_t semaphore;
 }
 
 #pragma mark ===============获取汉字首字母====================
+//获得 首字母组成的字符串保留非中文字符  电脑->DN  abc->ABC abc电脑->ABCDN
 + (NSString *)getFirstLetter:(NSString *)chinese{
-    __block NSString* newChinese = chinese;
+    //把已知的英文转为大写
+    __block NSString* newChinese = [chinese uppercaseString];
     //吧多音字先替换
     [BMChineseSortSetting.share.polyphoneMapping enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        newChinese = [chinese stringByReplacingOccurrencesOfString:key withString:obj];
+        newChinese = [newChinese stringByReplacingOccurrencesOfString:key withString:obj];
     }];
 
-    NSString *result = BMChineseSortSetting.share.sortMode == 1 ? [self getFirstLetter1:newChinese] : [self getFirstLetter2:newChinese];
-    //判断第一个字符是否为字母
-    if ([result characterAtIndex:0] >= 'A' && [result characterAtIndex:0] <= 'Z') {
-        return result;
+    NSMutableString *result = [NSMutableString string];
+
+    if (BMChineseSortSetting.share.sortMode == 1) {
+        //此处 对整个字符串转中文 而不单个字一次转 因为CFStringTransform太耗时 而这个时间又与字个数关系不大，所以尽量减少调用次数 以减少时间
+        NSArray *wordArr = [[BMChineseSort transformChinese:newChinese] componentsSeparatedByString:@" "];
+        for (NSString* word in wordArr) {
+            //如果word是小写 为汉字转的拼音 提取首字符 否则 保留全部
+            char c = [word characterAtIndex:0];
+            if ((c>96)&&(c<123)) {
+                [result appendFormat:@"%c",c];
+            }else{
+                [result appendString:word];
+            }
+        }
+    }else{
+        for(int j=0;j<newChinese.length;j++){
+            NSString *pinyin;
+            NSString *word = [newChinese substringWithRange:NSMakeRange(j, 1)];
+            pinyin = [NSString stringWithFormat:@"%c",pinyinFirstLetter([word characterAtIndex:0])];
+            if (pinyin.length>=1) {
+                [result appendString:[pinyin substringToIndex:1]];
+            }
+        }
+    }
+
+    //全转为大写
+    NSString *upperCaseStr = [result uppercaseString];
+    //判断第一个字符是否为字母 英文或者中文转拼音后都是字母开头
+    if ([upperCaseStr characterAtIndex:0] >= 'A' && [upperCaseStr characterAtIndex:0] <= 'Z') {
+        return upperCaseStr;
     }else{//所有非字母的全分为 特殊字符分类中
         return BMChineseSortSetting.share.specialCharSectionTitle;
     }
-}
-
-//通过 CFStringTransform 获得拼音。  例: @"电脑" -> 返回"DN"
-+ (NSString *)getFirstLetter1:(NSString *)chinese{
-    //获得汉字的拼音  例: @"电脑" -> @"DIAN NAO"
-    NSMutableString *pinyin = [BMChineseSort transformChinese:chinese].mutableCopy;
-    if (pinyin.length == 0) {
-        return BMChineseSortSetting.share.specialCharSectionTitle;
-    }
-    //获得拼音首字母  例: @"DIAN NAO" -> @"DN"
-    NSArray *letterArray = [pinyin componentsSeparatedByString:@" "];
-    NSMutableString *result = @"".mutableCopy;
-    for (NSString *letter in letterArray) {
-        [result appendString:[letter substringToIndex:1]];
-    }
-    return result;
-}
-//通过 拼音码表 获得拼音。  例: @"电脑" -> 返回"DN"
-+ (NSString *)getFirstLetter2:(NSString *)chinese{
-    NSString *pinYinResult = [NSString string];
-    for(int j=0;j<chinese.length;j++){
-        NSString *firstLetter = [NSString stringWithFormat:@"%c",pinyinFirstLetter([chinese characterAtIndex:j])];
-        pinYinResult = [pinYinResult stringByAppendingString:firstLetter];
-    }
-    return [pinYinResult uppercaseString];
 }
 
 //汉字码表对应的首字母

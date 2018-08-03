@@ -1,7 +1,7 @@
 BMChineseSort
 =======================
 [![Use Language](https://img.shields.io/badge/language-objc-green.svg)](https://github.com/Baymax0/BMChineseSort)
-[![Use Language](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/Baymax0/BMChineseSort)
+[![Use Language](https://img.shields.io/badge/version-0.2.1-blue.svg)](https://github.com/Baymax0/BMChineseSort)
 
 ## 介绍
 `BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。
@@ -9,7 +9,7 @@ BMChineseSort
 
 ## 使用 事例 (TableView分组排序)
 
-### 模型排序
+### 分组排序
 
 普通自定义的模型对象
 ```objective-c
@@ -25,7 +25,7 @@ BMChineseSort
 NSMutableArray<Person*> *dataArr;//数据源
 NSMutableArray *firstLetterArray;//排序后的出现过的拼音首字母数组
 NSMutableArray *sortedModelArr;//排序好的结果数组
-[BMChineseSort sortWithArray:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray<NSString *> *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
+[BMChineseSort sortWithArray:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
         if (isSuccess) {
             self.firstLetterArray = sectionTitleArr;
             self.sortedModelArr = sortedObjArr;
@@ -70,15 +70,19 @@ NSMutableArray *sortedModelArr;//排序好的结果数组
 ```
 
 
-### 字符串排序
+### 字符串分组排序
 使用方法与模型排序相同，注意 key = nil,否则排序失败。
 ```objective-c
 NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长春",@"abc",];
 //字符串数组 key 传nil 即可
-[BMChineseSort sortWithArray:provinceArr key:nil finish:^(bool isSuccess, NSMutableArray<NSString *> *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
+[BMChineseSort sortWithArray:provinceArr key:nil finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr){
         // sortedObjArr是NSMutableArray<NSMutableArray *<NSString*>>类型
 }];
 ```
+
+### 排序 不分组
+
+在回调方法中 拿到 `unGroupArr`即可 ，模型和字符串排序都支持
 
 ## 设置
 
@@ -116,9 +120,20 @@ BMChineseSortSetting.share.polyphoneMapping = @{@"长安":@"CA"};
 BMChineseSortSetting.share.polyphoneMapping = @{@"长":@"C"};//所有长 都映射为chang(C)
 BMChineseSortSetting.share.polyphoneMapping = @{@"厦门":@"XM",@"重庆":@"CQ"};
 ```
-
+默认已添加的常用的多音字映射：
+```objective-c
+    @{  @"重庆":@"CQ",
+        @"厦门":@"XM",
+        @"长":@"C",
+        @"沈":@"S",
+    }
+```
 
 ## Migration
+
+### Version 0.2.1
+
+添加未分组的结果集回调，修改demo
 
 ### Version 0.2.0
 

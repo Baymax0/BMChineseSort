@@ -57,13 +57,13 @@
 +(NSString *)transformChinese:(NSString *)word;
 
 /**
- 异步获取拼音分组排序
+ 异步获取拼音分组排序 (分组)
 
  @param objectArray 需要排序的数据源 可以是自定义模型数组，字符串数组，字典数组
  @param key 如果是字符串数组key传nil, 否则传入需要排序的字符串属性，或是字符串字段
  @param finish 异步回调block isSuccess为no, 打开打印功能查看原因
  */
 
-+(void)sortWithArray:(NSArray*)objectArray key:(NSString *)key finish:(void (^)(bool isSuccess, NSMutableArray<NSString*> *sectionTitleArr, NSMutableArray<NSMutableArray*>* sortedObjArr))finish;
++(void)sortAndGroup:(NSArray*)objectArray key:(NSString *)key finish:(void (^)(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray*>* sortedObjArr))finish;
 
 @end
