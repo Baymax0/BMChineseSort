@@ -16,7 +16,7 @@
 //排序后的出现过的拼音首字母数组
 @property(nonatomic,strong)NSMutableArray *firstLetterArray;
 //排序好的结果数组
-@property(nonatomic,strong)NSMutableArray<Person*> *sortedModelArr;
+@property(nonatomic,strong)NSMutableArray<NSMutableArray *> *sortedModelArr;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

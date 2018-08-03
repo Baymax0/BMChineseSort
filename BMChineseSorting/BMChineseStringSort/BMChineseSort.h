@@ -3,7 +3,7 @@
 //
 //  Created by Baymax on 16/2/11.
 //  Copyright (c) 2016年 Baymax. All rights reserved.
-//
+//  version: 0.0.2
 
 #import <Foundation/Foundation.h>
 /**
@@ -55,7 +55,6 @@
  @return 返回对应的拼音
  */
 +(NSString *)transformChinese:(NSString *)word;
-
 
 /**
  异步获取拼音分组排序
