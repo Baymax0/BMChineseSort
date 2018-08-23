@@ -13,8 +13,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    NSLog(@"%@", [BMChineseSort transformChinese:@"AV扇死"]);
 }
 
 

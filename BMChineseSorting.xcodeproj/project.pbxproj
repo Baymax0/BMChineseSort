@@ -88,11 +88,12 @@
 		0A045CFB1D57701C00A2BA30 /* suportfiles */ = {
 			isa = PBXGroup;
 			children = (
+				0AA8561C1D3925AE0051A8E3 /* ViewController.h */,
+				0AA8561D1D3925AE0051A8E3 /* ViewController.m */,
 				0AA8560E1D3925AE0051A8E3 /* AppDelegate.h */,
 				0AA8560F1D3925AE0051A8E3 /* AppDelegate.m */,
 				0AA856101D3925AE0051A8E3 /* Assets.xcassets */,
 				0AA856111D3925AE0051A8E3 /* LaunchScreen.storyboard */,
-				0AA856131D3925AE0051A8E3 /* Main.storyboard */,
 				0AA856181D3925AE0051A8E3 /* Info.plist */,
 				0AA856191D3925AE0051A8E3 /* main.m */,
 			);
@@ -102,10 +103,8 @@
 		0AA8560D1D3925AE0051A8E3 /* BMChineseSorting */ = {
 			isa = PBXGroup;
 			children = (
+				0AA856131D3925AE0051A8E3 /* Main.storyboard */,
 				2D4CA51721142576000625D1 /* ViewController */,
-				0AA8561C1D3925AE0051A8E3 /* ViewController.h */,
-				0AA8561D1D3925AE0051A8E3 /* ViewController.m */,
-				0A045CFA1D57700E00A2BA30 /* Model */,
 				0AA856151D3925AE0051A8E3 /* BMChineseSort */,
 				0A045CFB1D57701C00A2BA30 /* suportfiles */,
 			);
@@ -122,17 +121,34 @@
 			path = BMChineseStringSort;
 			sourceTree = "<group>";
 		};
-		2D4CA51721142576000625D1 /* ViewController */ = {
+		2D229616212E9C6A00A4D2DE /* GroupingSort */ = {
 			isa = PBXGroup;
 			children = (
 				2D4CA51A211425FB000625D1 /* StringGroupingSortVC.h */,
 				2D4CA51B211425FB000625D1 /* StringGroupingSortVC.m */,
 				2D4CA51D21142633000625D1 /* ModelGroupingSortVC.h */,
 				2D4CA51E21142633000625D1 /* ModelGroupingSortVC.m */,
+			);
+			name = GroupingSort;
+			sourceTree = "<group>";
+		};
+		2D229617212E9C7700A4D2DE /* Sort */ = {
+			isa = PBXGroup;
+			children = (
 				2D4CA52021143B92000625D1 /* ModelSortVC.h */,
 				2D4CA52121143B92000625D1 /* ModelSortVC.m */,
 				2D4CA52321143D5E000625D1 /* StringSortVC.h */,
 				2D4CA52421143D5E000625D1 /* StringSortVC.m */,
+			);
+			name = Sort;
+			sourceTree = "<group>";
+		};
+		2D4CA51721142576000625D1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0A045CFA1D57700E00A2BA30 /* Model */,
+				2D229617212E9C7700A4D2DE /* Sort */,
+				2D229616212E9C6A00A4D2DE /* GroupingSort */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";

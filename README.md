@@ -92,9 +92,9 @@ NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长�
 
 两种方法都是基于多线程异步操作后进行优化了。
 
-- sortMode=1 使用CFStringTransform 方法转换，比较耗时
+- sortMode=1 使用系统CFStringTransform 方法转换，比较耗时
 
-- sortMode=2 使用汉字码表对应的首字母码表，通过编码顺序查找，比较快，码表来源于网络 不保证准确性，可以码表配合polyphoneMapping手动修改错误的映射
+- sortMode=2 使用汉字码表对应的首字母码表，通过编码顺序查找，比较快。（码表来源于网络,没有验证过，但基本没什么问题）如遇到多音字或者可能错误的拼音映射，可以码表配合polyphoneMapping手动修改错误的映射
 
 ```objective-c
 BMChineseSortSetting.share.sortMode = 1
