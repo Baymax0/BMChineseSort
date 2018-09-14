@@ -90,14 +90,14 @@ NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长�
 
 属性|默认值|描述
 -|-|-
-sortMode| 2 | 排序所用方法，1 使用CFStringTransform，2使用汉字码表
+sortMode| 2 | 排序所用方法，1 使用CFStringTransform，2使用汉字码表，详见：[多音字映射](#0)
 logEable| YES |是否开启打印，YES=开启
 specialCharSectionTitle| “#” |特殊字符最后单独分组所用的 分组名称
 specialCharPositionIsFront| YES |特殊字符所在位置 YES = 开头，NO = 结尾
-ignoreModelWithPrefix| “” |剔除 特定字符开头的对象，不出现在最终结果集中，不要与 specialCharSectionTitle 冲突
-polyphoneMapping| 字典 |常用错误多音字 手动映射，具体使用及初始值后面有介绍[多音字映射](#1)
+ignoreModelWithPrefix| “” |剔除 特定字符开头的对象，详见：[剔除不要特定字符开头的元素](#1)
+polyphoneMapping| 字典 |常用错误多音字 手动映射，详见：[多音字映射](#2)
 
-
+<h2 id="0"> </h2>
 ### 拼音转换方式替换
 
 两种方法都是基于多线程异步操作后进行优化了。
@@ -109,15 +109,15 @@ polyphoneMapping| 字典 |常用错误多音字 手动映射，具体使用及�
 ```objective-c
 BMChineseSortSetting.share.sortMode = 1
 ```
-
+<h2 id="1"> </h2>
 ### 剔除不要特定字符开头的元素
 
-如果想过滤 某些字符开头的元素，使用 `ignoreModelWithPrefix`，下面例子中剔除了所有元素中对应key的值是`数字`开头的元素
+如果想过滤 某些字符开头的元素，不出现在最终结果集中,使用 `ignoreModelWithPrefix`，不要与 specialCharSectionTitle 冲突。下面例子中剔除了所有元素中对应key的值是`数字`开头的元素
 ```objective-c
 BMChineseSortSetting.share.ignoreModelWithPrefix = @"0123456789"
 ```
-
-### 多音字映射<h2 id="1"> </h2>
+<h2 id="2"> </h2>
+### 多音字映射
 
 实际使用中如果遇到想手动映射拼音的 可以使用到`polyphoneMapping`完成映射,由于多音字在本地中是无法动态解决的，如果不是通过后台获取的拼音，则只能通过手动过滤的方法了。
 如果你觉得常用的，可以在issue中提出来，我更新在默认值中。
