@@ -88,6 +88,16 @@ NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长�
 
 通过 `BMChineseSortSetting.share` 来进行设置
 
+属性|默认值|描述
+-|-|-
+sortMode|2| 排序所用方法，1 使用CFStringTransform，2使用汉字码表
+logEable|YES|是否开启打印，YES=开启
+specialCharSectionTitle|@“#”|特殊字符最后单独分组所用的 分组名称
+specialCharPositionIsFront|YES|特殊字符所在位置 YES = 开头，NO = 结尾
+ignoreModelWithPrefix|@“”|剔除 特定字符开头的对象，不出现在最终结果集中，不要与 specialCharSectionTitle 冲突
+polyphoneMapping|略|常用错误多音字 手动映射，使用及初始值后面有介绍
+
+
 ### 拼音转换方式替换
 
 两种方法都是基于多线程异步操作后进行优化了。
@@ -130,6 +140,10 @@ BMChineseSortSetting.share.polyphoneMapping = @{@"厦门":@"XM",@"重庆":@"CQ"}
 ```
 
 ## Migration
+
+### Version 0.2.2
+
+设置中添加 specialCharPositionIsFront, 可设置特殊字符所在位置
 
 ### Version 0.2.1
 

@@ -27,6 +27,8 @@
             [self.tableView reloadData];
         }
     }];
+
+    NSString *str = @"1";
 }
 
 #pragma mark - Table view data source

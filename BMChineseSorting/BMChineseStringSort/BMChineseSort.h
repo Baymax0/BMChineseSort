@@ -27,6 +27,10 @@
  */
 @property (strong, nonatomic) NSString *  specialCharSectionTitle;
 /**
+ 特殊字符所在 位置 YES = 开头，NO = 结尾, defalut is @"YES"
+ */
+@property (nonatomic,assign) BOOL specialCharPositionIsFront;
+/**
     剔除 特定字符开头的对象，不出现在最终结果集中，不要与 specialCharSectionTitle 冲突。 default is ""
     eg: 过滤所有数字开的对象  ignoreModelWithPrefix = @"0123456789"
  */

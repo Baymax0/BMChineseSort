@@ -24,6 +24,7 @@
     _sortMode = 2;
     _logEable = YES;
     _specialCharSectionTitle = @"#";
+    _specialCharPositionIsFront = YES;
     _ignoreModelWithPrefix = @"";
     _polyphoneMapping = [NSMutableDictionary dictionaryWithDictionary:
                          @{@"重庆":@"CQ",
@@ -39,7 +40,8 @@
 
 @end
 
-//封装用于排序的 单位 模型
+
+#pragma mark ============== 封装用于排序的 单位 模型 ==================
 @interface BMChineseSortModel : NSObject
 //用将需要排序的对象封装在BMChineseSort对象中，包含排序的字符串，对象，首字母三个属性
 //进行比较的字符串，
@@ -49,17 +51,47 @@
 //需要比较的对象
 @property (strong , nonatomic) id object;
 @end
+
+
 @implementation BMChineseSortModel
 @end
+
+#pragma mark ============== 自定义排序扩展 ==================
+// NSString + mySort.h
+@interface NSString (mySort)
+- (NSComparisonResult)mySort:(NSString *)str;
+@end
+
+@implementation NSString (mySort)
+- (NSComparisonResult)mySort:(NSString *)str {
+    NSString*s = [BMChineseSortSetting share].specialCharSectionTitle;
+    BOOL b = [BMChineseSortSetting share].specialCharPositionIsFront;
+    if ([self isEqualToString:s]){
+        //相同
+        if ([str isEqualToString:s]) {
+            return NSOrderedSame;
+        }
+        return b ? NSOrderedAscending : NSOrderedDescending;
+    }else if ([str isEqualToString:s]){
+        return b ? NSOrderedDescending : NSOrderedAscending;
+    }else{
+        return [self localizedStandardCompare:str];
+    }
+}
+@end
+
+
+
+
+
+
 
 //数组操作信号量
 dispatch_semaphore_t semaphore;
 
-
-
 @implementation BMChineseSort
 #pragma mark ============== tools ==================
-//中文转拼音 ABC苹果 -> @"ABC ping guo" xiaoxie
+//中文转拼音 ABC苹果 -> @"ABC ping guo" 英文不变 拼音小写
 +(NSString *)transformChinese:(NSString *)word{
     NSMutableString *pinyin = [word mutableCopy];
     CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
@@ -132,7 +164,8 @@ dispatch_semaphore_t semaphore;
         [BMChineseSort logMsg:[NSString stringWithFormat:@"转拼音用时：\t %f s", (state1-start)]];
 
         //根据BMChineseSortModel的pinYin字段 升序 排列
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pinYin" ascending:YES];
+//        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pinYin" ascending:YES];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pinYin" ascending:YES selector:@selector(mySort:)];
         [sortModelArray sortUsingDescriptors:@[sortDescriptor]];
 
         //打印 排序用时
@@ -166,6 +199,8 @@ dispatch_semaphore_t semaphore;
                 [newSection  addObject:obj];
             }
         }
+        //
+
         //打印 总用时
         CFAbsoluteTime state3 = CFAbsoluteTimeGetCurrent();
         [BMChineseSort logMsg:[NSString stringWithFormat:@"分组用时：\t %f s", (state3-state2)]];
