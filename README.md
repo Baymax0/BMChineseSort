@@ -90,7 +90,7 @@ NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长�
 
 属性|默认值|描述
 -|-|-
-sortMode| 2 | 排序所用方法，1 使用CFStringTransform，2使用汉字码表，详见：[多音字映射](#0)
+sortMode| 2 | 排序所用方法，1 使用CFStringTransform，2使用汉字码表，详见：[文字转拼音方法选择](#0)
 logEable| YES |是否开启打印，YES=开启
 specialCharSectionTitle| “#” |特殊字符最后单独分组所用的 分组名称
 specialCharPositionIsFront| YES |特殊字符所在位置 YES = 开头，NO = 结尾
@@ -99,7 +99,7 @@ polyphoneMapping| 包含部分常用多音字 |常用多音字 手动映射，�
 
 <h2 id="0"> </h2>
 
-### 拼音转换方式替换
+### 文字转拼音方法选择
 
 两种方法都是基于多线程异步操作后进行优化了。
 
