@@ -94,8 +94,8 @@ sortMode| 2 | 排序所用方法，1 使用CFStringTransform，2使用汉字码�
 logEable| YES |是否开启打印，YES=开启
 specialCharSectionTitle| “#” |特殊字符最后单独分组所用的 分组名称
 specialCharPositionIsFront| YES |特殊字符所在位置 YES = 开头，NO = 结尾
-ignoreModelWithPrefix| “” |剔除 特定字符开头的对象，详见：[剔除不要特定字符开头的元素](#1)
-polyphoneMapping| 包含小部分常用多音字 |常用多音字 手动映射，详见：[多音字映射](#2)
+ignoreModelWithPrefix| “” |剔除 特定字符开头的对象，详见：[剔除特定字符开头的元素](#1)
+polyphoneMapping| 包含部分常用多音字 |常用多音字 手动映射，详见：[多音字映射](#2)
 
 <h2 id="0"> </h2>
 
@@ -112,7 +112,7 @@ BMChineseSortSetting.share.sortMode = 1
 ```
 <h2 id="1"> </h2>
 
-### 剔除不要特定字符开头的元素
+### 剔除特定字符开头的元素
 
 如果想过滤 某些字符开头的元素，不出现在最终结果集中,使用 `ignoreModelWithPrefix`，不要与 specialCharSectionTitle 冲突。下面例子中剔除了所有元素中对应key的值是`数字`开头的元素
 ```objective-c
