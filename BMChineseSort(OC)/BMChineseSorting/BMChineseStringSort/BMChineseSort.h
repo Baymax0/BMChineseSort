@@ -13,9 +13,9 @@
 +(BMChineseSortSetting*)share;
 /**
     排序的时间主要花在 中文转拼音上 sortMode 选择转换的方法 default is 2
-    sortMode = 1 使用CFStringTransform 方法转换，比较耗时
+    sortMode = 1 使用原生CFStringTransform 方法转换，比较耗时
     sortMode = 2 使用汉字码表对应的首字母码表 通过编码顺序查找 比较快
-                 码表来源于网络 不保证准确性，可以码表配合polyphoneMapping手动修改错误的映射
+                 码表来源于网络 不保证准确性（除了多音字没发现有错误），可以码表配合polyphoneMapping手动修改想要的映射
  */
 @property (nonatomic,assign) NSInteger sortMode;
 /**

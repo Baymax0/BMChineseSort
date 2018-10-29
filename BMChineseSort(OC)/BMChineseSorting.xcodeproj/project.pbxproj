@@ -410,7 +410,7 @@
 				DEVELOPMENT_TEAM = A3RUKEN8Q5;
 				INFOPLIST_FILE = BMChineseSorting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = baymax.BMChineseSorting;
+				PRODUCT_BUNDLE_IDENTIFIER = baymax.lizhiwei.BMChineseSorting;
 				PRODUCT_NAME = BMChineseSorting;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -425,7 +425,7 @@
 				DEVELOPMENT_TEAM = A3RUKEN8Q5;
 				INFOPLIST_FILE = BMChineseSorting/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = baymax.BMChineseSorting;
+				PRODUCT_BUNDLE_IDENTIFIER = baymax.lizhiwei.BMChineseSorting;
 				PRODUCT_NAME = BMChineseSorting;
 				SWIFT_VERSION = 3.0;
 			};
