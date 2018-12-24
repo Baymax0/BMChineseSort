@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  BMChineseSortingSwift
 //
-//  Created by lzw on 2018/10/29.
-//  Copyright © 2018 lizhiwei. All rights reserved.
+//  Created by Baymax on 2018/10/29.
+//  Copyright © 2018 Baymax. All rights reserved.
 //
 
 import UIKit

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D433D0421D071EC00247CF7 /* SortVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D433D0221D071EC00247CF7 /* SortVC.swift */; };
+		2D433D0521D071EC00247CF7 /* GroupingSortVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D433D0321D071EC00247CF7 /* GroupingSortVC.swift */; };
+		2D433D0821D0831C00247CF7 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D433D0721D0831C00247CF7 /* Person.swift */; };
 		2DBEFE6E2186E409003DDEC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBEFE6D2186E409003DDEC1 /* AppDelegate.swift */; };
 		2DBEFE702186E409003DDEC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBEFE6F2186E409003DDEC1 /* ViewController.swift */; };
 		2DBEFE732186E409003DDEC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DBEFE712186E409003DDEC1 /* Main.storyboard */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D433D0221D071EC00247CF7 /* SortVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortVC.swift; sourceTree = "<group>"; };
+		2D433D0321D071EC00247CF7 /* GroupingSortVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingSortVC.swift; sourceTree = "<group>"; };
+		2D433D0721D0831C00247CF7 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		2DBEFE6A2186E409003DDEC1 /* BMChineseSortingSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BMChineseSortingSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DBEFE6D2186E409003DDEC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DBEFE6F2186E409003DDEC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +43,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D433D0021D071C900247CF7 /* suportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				2DBEFE6D2186E409003DDEC1 /* AppDelegate.swift */,
+				2DBEFE6F2186E409003DDEC1 /* ViewController.swift */,
+				2DBEFE712186E409003DDEC1 /* Main.storyboard */,
+				2DBEFE742186E40D003DDEC1 /* Assets.xcassets */,
+				2DBEFE762186E40D003DDEC1 /* LaunchScreen.storyboard */,
+				2DBEFE792186E40D003DDEC1 /* Info.plist */,
+			);
+			path = suportFiles;
+			sourceTree = "<group>";
+		};
+		2D433D0121D071EC00247CF7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D433D0221D071EC00247CF7 /* SortVC.swift */,
+				2D433D0321D071EC00247CF7 /* GroupingSortVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		2D433D0621D0831C00247CF7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2D433D0721D0831C00247CF7 /* Person.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2DBEFE612186E409003DDEC1 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +92,10 @@
 		2DBEFE6C2186E409003DDEC1 /* BMChineseSortingSwift */ = {
 			isa = PBXGroup;
 			children = (
+				2D433D0621D0831C00247CF7 /* Model */,
+				2D433D0121D071EC00247CF7 /* ViewController */,
 				2DBEFE7F2186E9FD003DDEC1 /* BMChineseSort */,
-				2DBEFE6D2186E409003DDEC1 /* AppDelegate.swift */,
-				2DBEFE6F2186E409003DDEC1 /* ViewController.swift */,
-				2DBEFE712186E409003DDEC1 /* Main.storyboard */,
-				2DBEFE742186E40D003DDEC1 /* Assets.xcassets */,
-				2DBEFE762186E40D003DDEC1 /* LaunchScreen.storyboard */,
-				2DBEFE792186E40D003DDEC1 /* Info.plist */,
+				2D433D0021D071C900247CF7 /* suportFiles */,
 			);
 			path = BMChineseSortingSwift;
 			sourceTree = "<group>";
@@ -146,6 +179,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D433D0821D0831C00247CF7 /* Person.swift in Sources */,
+				2D433D0421D071EC00247CF7 /* SortVC.swift in Sources */,
+				2D433D0521D071EC00247CF7 /* GroupingSortVC.swift in Sources */,
 				2DBEFE702186E409003DDEC1 /* ViewController.swift in Sources */,
 				2DBEFE812186EAF8003DDEC1 /* BMChineseSort.swift in Sources */,
 				2DBEFE6E2186E409003DDEC1 /* AppDelegate.swift in Sources */,
@@ -296,12 +332,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A3RUKEN8Q5;
-				INFOPLIST_FILE = BMChineseSortingSwift/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BMChineseSortingSwift/suportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = baymax.lizhiwei.2.BMChineseSortingSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = baymax.BMChineseSortingSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -314,12 +350,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A3RUKEN8Q5;
-				INFOPLIST_FILE = BMChineseSortingSwift/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BMChineseSortingSwift/suportFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = baymax.lizhiwei.2.BMChineseSortingSwift;
+				PRODUCT_BUNDLE_IDENTIFIER = baymax.BMChineseSortingSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

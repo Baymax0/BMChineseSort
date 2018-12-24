@@ -2,8 +2,8 @@
 //  StringGroupingSortVC.m
 //  BMChineseSorting
 //
-//  Created by lzw on 2018/8/3.
-//  Copyright © 2018 BruceYu. All rights reserved.
+//  Created by Baymax on 2018/8/3.
+//  Copyright © 2018 Baymax. All rights reserved.
 //
 
 #import "StringGroupingSortVC.h"
