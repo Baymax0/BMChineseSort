@@ -173,6 +173,7 @@ swift 中参数的设置事例：
 ### Version 0.2.3
 
 swift版：可以使用了，并且swift版本添加了 compareTpye ，可以使用全拼音进行排序
+
 oc版：修复了xcode10 demo无法运行的问题
 
 ### Version 0.2.2
