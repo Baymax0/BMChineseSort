@@ -24,6 +24,7 @@ class SortVC: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+        BMChineseSort.share().polyphoneMapping["长安"] = "CA"
     }
 
     // MARK: - Table view data source

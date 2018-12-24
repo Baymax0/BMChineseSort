@@ -3,7 +3,7 @@
 //
 //  Created by Baymax on 16/2/11.
 //  Copyright (c) 2016年 Baymax. All rights reserved.
-//  version: 0.2.0
+//  version: 0.2.2
 
 #import <Foundation/Foundation.h>
 /**

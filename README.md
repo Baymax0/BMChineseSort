@@ -1,10 +1,11 @@
 BMChineseSort
 =======================
 [![Use Language](https://img.shields.io/badge/language-objc-green.svg)](https://github.com/Baymax0/BMChineseSort)
-[![Use Language](https://img.shields.io/badge/version-0.2.2-blue.svg)](https://github.com/Baymax0/BMChineseSort)
+[![Use Language](https://img.shields.io/badge/language-swift-orange.svg)](https://github.com/Baymax0/BMChineseSort)
+[![Use Language](https://img.shields.io/badge/version-0.2.3-blue.svg)](https://github.com/Baymax0/BMChineseSort)
 
 ## 介绍
-`BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。
+`BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。提供 oc 与 swift 两个版本
 
 
 ## 使用(TableView分组排序)
@@ -73,11 +74,11 @@ NSMutableArray *sortedModelArr;//排序好的结果数组
 ### 字符串分组排序
 使用方法与模型排序相同，注意 key = nil,否则排序失败。
 ```objective-c
-NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长春",@"abc",];
-//字符串数组 key 传nil 即可
-[BMChineseSort sortWithArray:provinceArr key:nil finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr){
-        // sortedObjArr是NSMutableArray<NSMutableArray *<NSString*>>类型
-}];
+    NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长春",@"abc",];
+    //字符串数组 key 传nil 即可
+    [BMChineseSort sortWithArray:provinceArr key:nil finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr){
+            // sortedObjArr是NSMutableArray<NSMutableArray *<NSString*>>类型
+    }];
 ```
 
 ### 排序 不分组
@@ -91,6 +92,7 @@ NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长�
 属性|默认值|描述
 -|-|-
 sortMode| 2 | 排序所用方法，1 使用CFStringTransform，2使用汉字码表，详见：[文字转拼音方法选择](#0)
+compareTpye（仅swift）| initial | 枚举类型包含.fullPinyin (全拼音)和.initial (首字母)，默认首字母，全拼模式sortMode会强制=1
 logEable| YES |是否开启打印，YES=开启
 specialCharSectionTitle| “#” |特殊字符最后单独分组所用的 分组名称
 specialCharPositionIsFront| YES |特殊字符所在位置 YES = 开头，NO = 结尾
@@ -108,7 +110,7 @@ polyphoneMapping| 包含部分常用多音字 |常用多音字 手动映射，�
 - sortMode=2 使用汉字码表对应的首字母码表，通过编码顺序查找，比较快。（码表来源于网络,没有验证过，但基本没什么问题）如遇到多音字或者可能错误的拼音映射，可以码表配合polyphoneMapping手动修改错误的映射
 
 ```objective-c
-BMChineseSortSetting.share.sortMode = 1
+    BMChineseSortSetting.share.sortMode = 1
 ```
 <h2 id="1"> </h2>
 
@@ -116,7 +118,7 @@ BMChineseSortSetting.share.sortMode = 1
 
 如果想过滤 某些字符开头的元素，不出现在最终结果集中,使用 `ignoreModelWithPrefix`，不要与 specialCharSectionTitle 冲突。下面例子中剔除了所有元素中对应key的值是`数字`开头的元素
 ```objective-c
-BMChineseSortSetting.share.ignoreModelWithPrefix = @"0123456789"
+    BMChineseSortSetting.share.ignoreModelWithPrefix = @"0123456789"
 ```
 <h2 id="2"> </h2>
 
@@ -129,9 +131,9 @@ BMChineseSortSetting.share.ignoreModelWithPrefix = @"0123456789"
 
 ```objective-c
 //使用时不需要添加，直接赋值即可，不会覆盖上一次的值
-BMChineseSortSetting.share.polyphoneMapping = @{@"长安":@"CA"};
-BMChineseSortSetting.share.polyphoneMapping = @{@"长":@"C"};//所有长 都映射为chang(C)
-BMChineseSortSetting.share.polyphoneMapping = @{@"厦门":@"XM",@"重庆":@"CQ"};
+    BMChineseSortSetting.share.polyphoneMapping = @{@"长安":@"CA"};
+    BMChineseSortSetting.share.polyphoneMapping = @{@"长":@"C"};//所有长 都映射为chang(C)
+    BMChineseSortSetting.share.polyphoneMapping = @{@"厦门":@"XM",@"重庆":@"CQ"};
 ```
 默认已添加的常用的多音字映射：
 ```objective-c
@@ -142,7 +144,36 @@ BMChineseSortSetting.share.polyphoneMapping = @{@"厦门":@"XM",@"重庆":@"CQ"}
     }
 ```
 
+
+### 关于swift版本
+
+swift 的参数名及调用方式大体与oc版相同。下面是一个简单的字符串排序
+```swift
+    var dataArr = ["北京","河北"]
+    // 排序
+    BMChineseSort.sortAndGroup(objectArray: dataArr, key: nil) { (isSuccess, unGroupArr, _, _) in
+        if isSuccess{
+            self.dataArr = unGroupArr
+            self.tableView.reloadData()
+        }
+    }
+```
+
+swift 中参数的设置事例：
+```swift
+    //swift中修改排序比较模式为 首字母比较
+    BMChineseSort.share().compareTpye = .initial
+    //与oc不同 swift 直接添加新值
+    BMChineseSort.share().polyphoneMapping["长安"] = "CA"
+```
+
+
 ## Migration
+
+### Version 0.2.3
+
+swift版：可以使用了，并且swift版本添加了 compareTpye ，可以使用全拼音进行排序
+oc版：修复了xcode10 demo无法运行的问题
 
 ### Version 0.2.2
 
