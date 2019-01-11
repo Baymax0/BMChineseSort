@@ -22,9 +22,9 @@
     [self request];
 
     //排序 Person对象
-    [BMChineseSort sortAndGroup:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
+    [BMChineseSort sortAndGroup:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray *unGroupedArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
         if (isSuccess) {
-            dataArr = unGroupArr;
+            dataArr = unGroupedArr;
             [self.tableView reloadData];
         }
     }];

@@ -104,7 +104,7 @@ dispatch_semaphore_t semaphore;
 +(void)sortAndGroup:(NSArray*)objectArray
                 key:(NSString *)key
              finish:(void (^)(bool isSuccess,
-                              NSMutableArray *unGroupArr,
+                              NSMutableArray *unGroupedArr,
                               NSMutableArray *sectionTitleArr,
                               NSMutableArray<NSMutableArray*>* sortedObjArr))finish{
 

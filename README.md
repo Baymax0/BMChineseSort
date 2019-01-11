@@ -26,7 +26,7 @@ BMChineseSort
 NSMutableArray<Person*> *dataArr;//数据源
 NSMutableArray *firstLetterArray;//排序后的出现过的拼音首字母数组
 NSMutableArray *sortedModelArr;//排序好的结果数组
-[BMChineseSort sortWithArray:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
+[BMChineseSort sortWithArray:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray *unGroupedArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
         if (isSuccess) {
             self.firstLetterArray = sectionTitleArr;
             self.sortedModelArr = sortedObjArr;
@@ -76,14 +76,14 @@ NSMutableArray *sortedModelArr;//排序好的结果数组
 ```objective-c
     NSMutableArray * provinceArr = @[@"北京",@"河南",@"重庆",@"沈阳",@"长春",@"abc",];
     //字符串数组 key 传nil 即可
-    [BMChineseSort sortWithArray:provinceArr key:nil finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr){
+    [BMChineseSort sortWithArray:provinceArr key:nil finish:^(bool isSuccess, NSMutableArray *unGroupedArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr){
             // sortedObjArr是NSMutableArray<NSMutableArray *<NSString*>>类型
     }];
 ```
 
 ### 排序 不分组
 
-在回调方法中 拿到 `unGroupArr`即可 ，模型和字符串排序都支持
+在回调方法中 拿到 `unGroupedArr`即可 ，模型和字符串排序都支持
 
 ## 设置
 
@@ -151,9 +151,9 @@ swift 的参数名及调用方式大体与oc版相同。下面是一个简单的
 ```swift
     var dataArr = ["北京","河北"]
     // 排序
-    BMChineseSort.sortAndGroup(objectArray: dataArr, key: nil) { (isSuccess, unGroupArr, _, _) in
+    BMChineseSort.sortAndGroup(objectArray: dataArr, key: nil) { (isSuccess, unGroupedArr, _, _) in
         if isSuccess{
-            self.dataArr = unGroupArr
+            self.dataArr = unGroupedArr
             self.tableView.reloadData()
         }
     }

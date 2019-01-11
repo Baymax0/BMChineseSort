@@ -26,7 +26,7 @@ protocol BMChineseSortProtocol {
     static func sortAndGroup<T>( objectArray:Array<T>?,
                                  key:String?,
                                  finish: @escaping (_ success:Bool,
-        _ unGroupArr:Array<T>,
+        _ unGroupedArr:Array<T>,
         _ sectionTitleArr:Array<String>,
         _ sortedObjArr:Array<Array<T>>) ->() )
 }
@@ -116,7 +116,7 @@ extension BMChineseSort : BMChineseSortProtocol{
     static func sortAndGroup<T>( objectArray:Array<T>?,
                                  key:String?,
                                  finish: @escaping (_ success:Bool,
-        _ unGroupArr:Array<T>,
+        _ unGroupedArr:Array<T>,
         _ sectionTitleArr:Array<String>,
         _ sortedObjArr:Array<Array<T>>) ->() ){
         BMChineseSort.share().sortAndGroup(objectArray: objectArray, key: key, finish: finish)
@@ -131,7 +131,7 @@ extension BMChineseSort : BMChineseSortProtocol{
     private func sortAndGroup<T>( objectArray:Array<T>?,
                                   key:String?,
                                   finish: @escaping (_ success:Bool,
-        _ unGroupArr:Array<T>,
+        _ unGroupedArr:Array<T>,
         _ sectionTitleArr:Array<String>,
         _ sortedObjArr:Array<Array<T>>) ->() ){
         //返回空

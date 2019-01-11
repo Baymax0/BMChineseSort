@@ -33,7 +33,7 @@
     //选择拼音 转换的 方法
     BMChineseSortSetting.share.sortMode = sender.tag; // 1或2
     //排序 Person对象
-    [BMChineseSort sortAndGroup:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray *unGroupArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
+    [BMChineseSort sortAndGroup:dataArr key:@"name" finish:^(bool isSuccess, NSMutableArray *unGroupedArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
         if (isSuccess) {
             self.firstLetterArray = sectionTitleArr;
             self.sortedModelArr = sortedObjArr;

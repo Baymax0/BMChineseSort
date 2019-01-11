@@ -18,9 +18,9 @@ class SortVC: UITableViewController {
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        BMChineseSort.sortAndGroup(objectArray: dataArr, key: nil) { (isSuccess, unGroupArr, _, _) in
+        BMChineseSort.sortAndGroup(objectArray: dataArr, key: nil) { (isSuccess, unGroupedArr, _, _) in
             if isSuccess{
-                self.dataArr = unGroupArr
+                self.dataArr = unGroupedArr
                 self.tableView.reloadData()
             }
         }
