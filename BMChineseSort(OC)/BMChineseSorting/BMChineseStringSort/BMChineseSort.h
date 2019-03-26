@@ -1,9 +1,9 @@
 //
-//  BMChineseString.m
+//  BMChineseSort.m
 //
 //  Created by Baymax on 16/2/11.
 //  Copyright (c) 2016年 Baymax. All rights reserved.
-//  version: 0.2.2
+//  version: 0.2.4
 
 #import <Foundation/Foundation.h>
 /**
@@ -22,6 +22,11 @@
     是否打印所用时间。 default is YES
  */
 @property (nonatomic,assign) BOOL logEable;
+
+/**
+ 是否要求排序是稳定的排序，即相同的拼音首字母的元素的顺序排完序后不变，开启会多消耗时间， default is false
+ */
+@property (nonatomic,assign) BOOL needStable;
 /**
     特殊字符最后单独分组所用的 分组名称。 default is @“#”
  */

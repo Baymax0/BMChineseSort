@@ -5,8 +5,13 @@ BMChineseSort
 [![Use Language](https://img.shields.io/badge/version-0.2.3-blue.svg)](https://github.com/Baymax0/BMChineseSort)
 
 ## 介绍
-`BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。提供 oc 与 swift 两个版本
+`BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。
 
+对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。
+
+提供 swift 版本（基于反射实现，尽量不使用偏oc的方法）
+
+注:（在issues里反馈的时候最好注明下是oc还是swift问题）
 
 ## 使用(TableView分组排序)
 
@@ -94,6 +99,7 @@ NSMutableArray *sortedModelArr;//排序好的结果数组
 sortMode| 2 | 排序所用方法，1 使用CFStringTransform，2使用汉字码表，详见：[文字转拼音方法选择](#0)
 compareTpye（仅swift）| initial | 枚举类型包含.fullPinyin (全拼音)和.initial (首字母)，默认首字母，全拼模式sortMode会强制=1
 logEable| YES |是否开启打印，YES=开启
+needStable| NO | 是否要求排序稳定，以速度为代价的稳定的排序（该属性暂时更新oc版本，swift还未添加）
 specialCharSectionTitle| “#” |特殊字符最后单独分组所用的 分组名称
 specialCharPositionIsFront| YES |特殊字符所在位置 YES = 开头，NO = 结尾
 ignoreModelWithPrefix| “” |剔除 特定字符开头的对象，详见：[剔除特定字符开头的元素](#1)
@@ -159,7 +165,7 @@ swift 的参数名及调用方式大体与oc版相同。下面是一个简单的
     }
 ```
 
-swift 中参数的设置事例：
+swift 中参数的设置试例：
 ```swift
     //swift中修改排序比较模式为 首字母比较
     BMChineseSort.share().compareTpye = .initial
@@ -169,6 +175,10 @@ swift 中参数的设置事例：
 
 
 ## Migration
+
+### Version 0.2.4
+
+oc版：添加了needStable方法，以部分速度为代价，使最终的结果为稳定排序后的结果，默认为 no
 
 ### Version 0.2.3
 
@@ -191,6 +201,12 @@ oc版：修复了xcode10 demo无法运行的问题
 2.同时添加将排序转入后台多线程，使用block回调拿到数据。
 
 3.将模型与字符串排序合并为一个方法，使用通过key区分。
+
+
+如果有什么可以促使我改进或者优化的地方欢迎在issue中提出，我会不定期处理的。
+
+如果是严重的bug 自己不好修改 又比较着急的可以邮件ding我
+
 
 <!-- 
 sublime编辑时自动刷新用:

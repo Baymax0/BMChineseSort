@@ -3,7 +3,7 @@
 //
 //  Created by Baymax on 16/2/11.
 //  Copyright (c) 2016年 Baymax. All rights reserved.
-//  version: 0.2.2
+//  version: 0.2.4
 
 #import "BMChineseSort.h"
 #import <objc/runtime.h>
@@ -23,6 +23,7 @@
 -(void)defaultValue{
     _sortMode = 2;
     _logEable = YES;
+    _needStable = false;
     _specialCharSectionTitle = @"#";
     _specialCharPositionIsFront = YES;
     _ignoreModelWithPrefix = @"";
@@ -66,17 +67,24 @@
 - (NSComparisonResult)mySort:(NSString *)str {
     NSString*s = [BMChineseSortSetting share].specialCharSectionTitle;
     BOOL b = [BMChineseSortSetting share].specialCharPositionIsFront;
+    
+    NSComparisonResult res = NSOrderedDescending;
     if ([self isEqualToString:s]){
         //相同
         if ([str isEqualToString:s]) {
-            return NSOrderedSame;
+            res = NSOrderedSame;
         }
-        return b ? NSOrderedAscending : NSOrderedDescending;
+        res = b ? NSOrderedAscending : NSOrderedDescending;
     }else if ([str isEqualToString:s]){
-        return b ? NSOrderedDescending : NSOrderedAscending;
+        res = b ? NSOrderedDescending : NSOrderedAscending;
     }else{
-        return [self localizedStandardCompare:str];
+        res = [self localizedStandardCompare:str];
     }
+    //如过相等就返回
+    if (res == NSOrderedSame) {
+        res = NSOrderedAscending;
+    }
+    return res;
 }
 @end
 
@@ -148,23 +156,31 @@ dispatch_semaphore_t semaphore;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //将数据 转换为 BMChineseSortModel
         NSMutableArray *sortModelArray = [NSMutableArray arrayWithCapacity:0];
-        [objectArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            BMChineseSortModel *model = [self getModelWithObj:obj key:key];
-            if (model) {
-                //对 数组的插入操作 上锁
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        
+        
+        if (BMChineseSortSetting.share.needStable){
+            [objectArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                BMChineseSortModel *model = [self getModelWithObj:obj key:key];
+                [sortModelArray addObject:model];
+            }];
+        }else{
+            // 由于enumerateObjectsWithOptions是多线程导致 转拼音后顺序打乱 造成排序的不稳定
+            [objectArray enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                BMChineseSortModel *model = [self getModelWithObj:obj key:key];
+                if (model) {
+                    //对 数组的插入操作 上锁
+                    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                     [sortModelArray addObject:model];
-                dispatch_semaphore_signal(semaphore);
-            }
-        }];
-
-
+                    dispatch_semaphore_signal(semaphore);
+                }
+            }];
+        }
+        
         CFAbsoluteTime state1 = CFAbsoluteTimeGetCurrent();
         [BMChineseSort logMsg:@""];
         [BMChineseSort logMsg:[NSString stringWithFormat:@"转拼音用时：\t %f s", (state1-start)]];
 
         //根据BMChineseSortModel的pinYin字段 升序 排列
-//        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pinYin" ascending:YES];
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"pinYin" ascending:YES selector:@selector(mySort:)];
         [sortModelArray sortUsingDescriptors:@[sortDescriptor]];
 

@@ -19,16 +19,14 @@
     [super viewDidLoad];
     //请求数据
     [self request];
-
-    //排序 Person对象
+    
+    //排序
     [BMChineseSort sortAndGroup:dataArr key:nil finish:^(bool isSuccess, NSMutableArray *unGroupedArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray *> *sortedObjArr) {
         if (isSuccess) {
             dataArr = unGroupedArr;
             [self.tableView reloadData];
         }
     }];
-
-    NSString *str = @"1";
 }
 
 #pragma mark - Table view data source
@@ -50,6 +48,7 @@
 //请求数据
 -(void)request{
     dataArr = @[@"北京",@"河北",@"黑龙江",@"上海",@"江苏",@"浙江",@"福建",@"湖北",@"湖南",@"广东",@"海南",@"重庆",@"四川",@"贵州",@"云南",@"西藏",@"陕西",@"沈阳",@"长春",@"abc",@"baba"].mutableCopy;
+
 }
 
 
