@@ -137,8 +137,8 @@ dispatch_semaphore_t semaphore;
         for (i = 0; i < outCount; i++) {
             Ivar property = ivars[i];
             NSString *keyName = [NSString stringWithCString:ivar_getName(property) encoding:NSUTF8StringEncoding];
-            keyName = [keyName stringByReplacingOccurrencesOfString:@"_" withString:@""];
-            if ([keyName isEqualToString:key]) {
+            NSString *tempKey = [NSString stringWithFormat:@"_%@",key];
+            if ([keyName isEqualToString:tempKey]) {
                 containKey = YES;
             }
         }
