@@ -3,7 +3,7 @@ BMChineseSort
 [![Use Language](https://img.shields.io/badge/language-objc-green.svg)](https://github.com/Baymax0/BMChineseSort)
 [![Use Language](https://img.shields.io/badge/language-swift-orange.svg)](https://github.com/Baymax0/BMChineseSort)
 [![Use Language](https://img.shields.io/badge/version-0.2.3-blue.svg)](https://github.com/Baymax0/BMChineseSort)
-[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 ## 介绍
 `BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。
