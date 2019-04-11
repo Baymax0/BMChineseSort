@@ -73,6 +73,6 @@
  @param finish 异步回调block isSuccess为no, 打开打印功能查看原因
  */
 
-+(void)sortAndGroup:(NSArray*)objectArray key:(NSString *)key finish:(void (^)(bool isSuccess, NSMutableArray *unGroupedArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray*>* sortedObjArr))finish;
++(void)sortAndGroup:(NSArray*)objectArray key:(NSString *)key className:(Class)cls finish:(void (^)(bool isSuccess, NSMutableArray *unGroupedArr, NSMutableArray *sectionTitleArr, NSMutableArray<NSMutableArray*>* sortedObjArr))finish;
 
 @end

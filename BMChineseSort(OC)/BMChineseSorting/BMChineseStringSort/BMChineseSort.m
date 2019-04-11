@@ -111,6 +111,7 @@ dispatch_semaphore_t semaphore;
 
 +(void)sortAndGroup:(NSArray*)objectArray
                 key:(NSString *)key
+           className:(Class)cls
              finish:(void (^)(bool isSuccess,
                               NSMutableArray *unGroupedArr,
                               NSMutableArray *sectionTitleArr,
@@ -131,9 +132,10 @@ dispatch_semaphore_t semaphore;
         }
         containKey = YES;
     }else{
-        NSObject *obj = objectArray.firstObject;
         unsigned int outCount, i;
-        Ivar *ivars = class_copyIvarList(obj.class, &outCount);
+        NSObject *obj = objectArray.firstObject;
+        Class cla = cls != nil ? cls : obj.class;
+        Ivar *ivars = class_copyIvarList(cla, &outCount);
         for (i = 0; i < outCount; i++) {
             Ivar property = ivars[i];
             NSString *keyName = [NSString stringWithCString:ivar_getName(property) encoding:NSUTF8StringEncoding];
