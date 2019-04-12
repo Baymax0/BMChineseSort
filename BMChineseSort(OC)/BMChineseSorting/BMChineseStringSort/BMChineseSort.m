@@ -131,16 +131,23 @@ dispatch_semaphore_t semaphore;
         }
         containKey = YES;
     }else{
-        NSObject *obj = objectArray.firstObject;
-        unsigned int outCount, i;
-        Ivar *ivars = class_copyIvarList(obj.class, &outCount);
-        for (i = 0; i < outCount; i++) {
-            Ivar property = ivars[i];
-            NSString *keyName = [NSString stringWithCString:ivar_getName(property) encoding:NSUTF8StringEncoding];
-            NSString *tempKey = [NSString stringWithFormat:@"_%@",key];
-            if ([keyName isEqualToString:tempKey]) {
-                containKey = YES;
+        Class cla = ((NSObject*)objectArray.firstObject).class;
+        while (cla != Nil){
+            unsigned int outCount, i;
+            Ivar *ivars = class_copyIvarList(cla, &outCount);
+            for (i = 0; i < outCount; i++) {
+                Ivar property = ivars[i];
+                NSString *keyName = [NSString stringWithCString:ivar_getName(property) encoding:NSUTF8StringEncoding];
+                NSString *tempKey = [NSString stringWithFormat:@"_%@",key];
+                if ([keyName isEqualToString:tempKey]) {
+                    containKey = YES;
+                    break;
+                }
             }
+            if (containKey == YES) {
+                break;
+            }
+            cla = class_getSuperclass(cla.class);
         }
     }
     if (!containKey) {
@@ -260,7 +267,9 @@ dispatch_semaphore_t semaphore;
 // 开关控制打印
 +(void)logMsg:(NSString*)msg{
     if (BMChineseSortSetting.share.logEable == YES) {
+        NSLog(@"------------------");
         NSLog(@"%@", msg);
+        NSLog(@"------------------");
     }
 }
 
