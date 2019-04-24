@@ -6,13 +6,10 @@ BMChineseSort
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 ## 介绍
-`BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。
-
-对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。
-
-提供 swift 版本（基于反射实现，尽量不使用偏oc的方法）
-
-注:（如果觉得本库有用或者你用到里你的项目中，请不吝啬的star✨一下，ths）
+- `BMChineseSort`是一个为模型、字典、字符串数组根据特定中文属性基于tableview分组优化的工具类，基于异步、多线程降低排序时间。
+- 对于多音字的问题，开放了一个映射属性，可手动修改个别多音字或你想要的映射关系。
+- 提供 swift 版本（基于反射实现，尽量不使用偏oc的方法）
+- 如果觉得本库有用或者你用到里你的项目中，请不吝啬的star✨一下，ths
 
 ## 使用(TableView分组排序)
 
