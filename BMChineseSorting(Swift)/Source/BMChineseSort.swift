@@ -201,7 +201,8 @@ extension BMChineseSort : BMChineseSortProtocol{
                     return model1 < model2
                 }
             })
-            let state3 = CFAbsoluteTimeGetCurrent()
+              
+//            let state3 = CFAbsoluteTimeGetCurrent()
 //            self.logMsg(String(format: "排序用时：%f s", state3-state2))
             
             var unSortedArr = Array<T>()
